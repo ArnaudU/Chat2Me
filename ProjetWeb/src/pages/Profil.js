@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from '../components/Header';
 import Asside from '../components/Asside';
+import Banniere from '../components/Banniere';
 
 const About = () => {
     return (
         <div>
-            <Header />
+            <Banniere />
             <Asside />
         </div>
     );

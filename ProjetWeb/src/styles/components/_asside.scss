@@ -15,11 +15,11 @@
       margin-bottom: 15px;
 
       img {
-        color: $color-2;
+        color: $color_1;
         transition: 0.2s;
+        width: 55px;
         cursor: pointer;
-        width: 60px;
-        border: solid $color-1;
+        //border: solid $color-1;
 
         &:hover {
           color: $white;
@@ -30,6 +30,8 @@
     #reglage {
       bottom: 10px;
     }
+
+    padding-bottom: 40vh;
   }
 
   .nav-active {

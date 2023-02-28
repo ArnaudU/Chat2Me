@@ -1,12 +1,14 @@
 import React from 'react';
-import Header from '../components/Header';
 import Asside from '../components/Asside';
+import Banniere from '../components/Banniere';
+import ListMessage from '../components/ListMessage';
 
 const Home = () => {
     return (
         <div>
-            <Header />
+            <Banniere />
             <Asside />
+            <ListMessage />
         </div>
     );
 };

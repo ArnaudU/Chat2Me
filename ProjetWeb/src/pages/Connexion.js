@@ -1,25 +1,43 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { useState } from 'react';
+import Banniere from '../components/Banniere';
 
-const FormulaireConnexion = () => {
+function FormulaireConnexion() {
+    const [login, setLogin] = useState('');
+    const [mdp, setMdp] = useState('');
+
+    function onChangeSetLogin(event) {
+        event.preventDefault();
+        setLogin(event.target.value)
+    }
+
+    function onChangeSetMdp(event) {
+        event.preventDefault();
+        setMdp(event.target.value)
+    }
+
+    function connect(event) {
+        event.preventDefault();
+        // IL faut faire un get http ici
+    }
+
     return (
         <div className='formulaire'>
             <h1>Connexion</h1>
-            <form action="" method="POST">
+            <form>
                 <div className="form-group">
-                    <label for="login">
+                    <label htmlFor="login">
                         Login
                     </label>
-                    <input type="text" name="login" />
+                    <input type="text" onChange={onChangeSetLogin} autoComplete="current-username" />
                 </div>
                 <div className="form-group">
-                    <label for="password">
+                    <label htmlFor="password">
                         Mot de passe
                     </label>
-                    <input type="password" name="password" />
+                    <input type="password" onChange={onChangeSetMdp} autoComplete="current-password" />
                 </div>
                 <ul>
-                    <button type="submit" id="btnConnexion">Connecter</button>
+                    <button id="btnConnexion" onClick={connect}>Connecter</button>
                     <button type="reset" id="btnAnnuler">Annuler</button>
                 </ul>
             </form>
@@ -31,7 +49,7 @@ const FormulaireConnexion = () => {
 const Connexion = () => {
     return (
         <div>
-            <Header />
+            <Banniere />
             <FormulaireConnexion />
         </div>
     );

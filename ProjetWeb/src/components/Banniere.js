@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Header = () => {
+const Banniere = () => {
     return (
-        <header className='header'>
+        <header className='banniere'>
             {/* Les images importées depuis la balise IMG son accessibles dans "public" */}
             <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active" : "")}>
                 <img src="./logo.png" alt="logo WorldBird" />
@@ -20,4 +20,4 @@ const Header = () => {
         </header>
     );
 };
-export default Header;
+export default Banniere;

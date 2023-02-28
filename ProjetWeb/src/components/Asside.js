@@ -1,21 +1,27 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import home from '../assets/img/home.png';
+import loupe from '../assets/img/loupe.png';
+import engrenage from '../assets/img/engrenage.png';
+import profil from '../assets/img/profil.png';
+
+
 
 const Asside = () => {
     return (
         <aside className="asside">
             <ul>
-                <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                    <img src="./home.png" alt="Accueil Logo" />
+                <NavLink to="/" className="tab">
+                    <img src={home} alt="Accueil" />
                 </NavLink>
-                <NavLink to="/profil" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                    <img src="./profil.png" alt="Profil Logo" />
+                <NavLink to="/profil" className="tab">
+                    <img src={profil} alt="Profil" />
                 </NavLink>
                 <NavLink to="">
-                    <img src="./loupe.png" alt="Recherche Logo" />
+                    <img src={loupe} alt="Recherche" />
                 </NavLink>
-                <NavLink id='reglage' to="/reglage" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                    <img src="./engrenage.png" alt="Settings Logo" />
+                <NavLink id='reglage' to="/reglage" className="tab">
+                    <img src={engrenage} alt="Settings" />
                 </NavLink>
             </ul>
         </aside>
