@@ -4,7 +4,7 @@ import home from '../assets/img/home.png';
 import loupe from '../assets/img/loupe.png';
 import engrenage from '../assets/img/engrenage.png';
 import profil from '../assets/img/profil.png';
-
+import deconnexion from '../assets/img/deconnexion.png';
 
 
 const Asside = () => {
@@ -22,6 +22,9 @@ const Asside = () => {
                 </NavLink>
                 <NavLink id='reglage' to="/reglage" className="tab">
                     <img src={engrenage} alt="Settings" />
+                </NavLink>
+                <NavLink to="">
+                    <img src={deconnexion} alt="Deconnecter" />
                 </NavLink>
             </ul>
         </aside>

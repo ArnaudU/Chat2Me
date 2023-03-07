@@ -6,6 +6,7 @@ const FormulaireInscription = () => {
     const [name, setName] = useState("")
     const [mdp, setMdp] = useState("")
     const [confirmer, setConfirmer] = useState("")
+
     function onChangeSetName(event) {
         event.preventDefault();
         setName(event.target.value)
@@ -40,7 +41,7 @@ const FormulaireInscription = () => {
     return (
         <div className='formulaire'>
             <h1>Enregistrement</h1>
-            <form action="" method="POST">
+            <form action="/inscription" method="POST">
                 <div className="form-group">
                     <label htmlFor="name">
                         Nom et Prenom
@@ -66,9 +67,12 @@ const FormulaireInscription = () => {
                     <input type="password" name="retapper" onChange={onChangeSetConfirmer} />
                 </div>
                 <ul>
-                    <button type="submit" id="btnConnexion" onClick={register}>Enregistrer</button>
+                    <button type="submit" id="btnConnexion">Enregistrer</button>
                     <button type="reset" id="btnAnnuler">Annuler</button>
                 </ul>
+                <div id='redirection'>
+                    Vous avez un compte ? <a href="/connexion">Connectez-vous</a>.
+                </div>
             </form>
         </div>
     );

@@ -19,48 +19,35 @@
         transition: 0.2s;
         width: 55px;
         cursor: pointer;
-        //border: solid $color-1;
-
-        &:hover {
-          color: $white;
-        }
       }
     }
 
-    #reglage {
-      bottom: 10px;
-    }
-
-    padding-bottom: 40vh;
+    padding-bottom: 32.5vh;
   }
 
-  .nav-active {
-    position: relative;
+  // :after {
+  //   content: "";
+  //   height: 4px;
+  //   width: 0;
+  //   background: $color-1;
+  //   position: absolute;
+  //   border-radius: 10px;
+  //   bottom: 0px;
+  //   left: 50%;
+  //   transform: translateX(-50%);
+  //   -webkit-animation: anim 0.3s ease forwards;
+  //   animation: anim 0.6s ease forwards;
 
-    &::after {
-      content: "";
-      height: 4px;
-      width: 0;
-      background: $color-1;
-      position: absolute;
-      border-radius: 10px;
-      bottom: 0px;
-      left: 50%;
-      transform: translateX(-50%);
-      -webkit-animation: anim 0.3s ease forwards;
-      animation: anim 0.6s ease forwards;
+  //   @-webkit-keyframes anim {
+  //     to {
+  //       width: 100%;
+  //     }
+  //   }
+  // }
 
-      @-webkit-keyframes anim {
-        to {
-          width: 100%;
-        }
-      }
-
-      @keyframes anim {
-        to {
-          width: 100%;
-        }
-      }
-    }
-  }
+  // @keyframes anim {
+  //   to {
+  //     width: 100%;
+  //   }
+  // }
 }

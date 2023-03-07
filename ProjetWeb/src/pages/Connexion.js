@@ -4,7 +4,7 @@ import Banniere from '../components/Banniere';
 function FormulaireConnexion() {
     const [login, setLogin] = useState('');
     const [mdp, setMdp] = useState('');
-
+    const [reessaye, setReessaye] = useState(0)
     function onChangeSetLogin(event) {
         event.preventDefault();
         setLogin(event.target.value)
@@ -23,7 +23,7 @@ function FormulaireConnexion() {
     return (
         <div className='formulaire'>
             <h1>Connexion</h1>
-            <form>
+            <form action="/connexion" method="post">
                 <div className="form-group">
                     <label htmlFor="login">
                         Login
@@ -37,11 +37,14 @@ function FormulaireConnexion() {
                     <input type="password" onChange={onChangeSetMdp} autoComplete="current-password" />
                 </div>
                 <ul>
-                    <button id="btnConnexion" onClick={connect}>Connecter</button>
+                    <button type="submit" >Connecter</button>
                     <button type="reset" id="btnAnnuler">Annuler</button>
                 </ul>
+                <div id='redirection'>
+                    Vous n'avez pas de compte ? <a href="/inscription">Inscrivez-vous</a>.
+                </div>
             </form>
-        </div>
+        </div >
     );
 }
 
