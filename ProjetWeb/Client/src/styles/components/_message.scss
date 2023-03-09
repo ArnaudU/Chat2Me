@@ -1,0 +1,58 @@
+.message {
+    @include verticalCenter;
+
+    section {
+        .contains {
+            p {
+                font-size: 25px;
+                padding: 15px;
+            }
+
+            h3 {
+                padding: 10px;
+            }
+        }
+
+        ul {
+            padding: 12px;
+            border-bottom: 1px solid $color-1;
+            display: flex;
+
+            justify-content: space-between;
+
+            li {
+
+                img {
+                    height: 35px;
+                    width: 35px;
+                    object-fit: contain;
+                    border-radius: 15px;
+                    vertical-align: middle;
+                }
+
+
+                span {
+                    padding-right: 10px;
+                    text-align: right;
+                }
+
+            }
+
+            #fav:hover {
+                background-color: $fav_color;
+                border-radius: 20px;
+            }
+
+            #retweet:hover {
+                background-color: $retweet_color;
+                border-radius: 20px;
+            }
+
+            .date {
+                margin-right: 15vh;
+            }
+
+
+        }
+    }
+}
