@@ -1,26 +1,33 @@
 .message {
-    @include verticalCenter;
-
     section {
         .contains {
             p {
+
                 font-size: 25px;
-                padding: 15px;
+                padding-left: 30px;
+                padding-right: 30px;
+                padding-top: 15px;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
-            h3 {
-                padding: 10px;
+            h2 {
+                padding-top: 2vh;
+                padding-left: 17vh;
+                color: $color_4;
             }
         }
 
         ul {
             padding: 12px;
-            border-bottom: 1px solid $color-1;
+            border-bottom: 1px solid $color_1;
             display: flex;
-
+            padding-left: 19vh;
+            padding-right: 5vh;
             justify-content: space-between;
 
             li {
+                @include verticalCenter;
 
                 img {
                     height: 35px;

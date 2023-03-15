@@ -2,7 +2,7 @@
   // background: url(../../assets/img/main.jpg) center/cover;
   display: flex;
   align-items: center;
-  border-bottom: 10px solid $color-1;
+  border-bottom: 10px solid $color_1;
 
   img {
     margin: 30px;
@@ -12,7 +12,7 @@
 
   h1 {
     @include verticalCenter;
-    color: $color-1;
+    color: $color_1;
     font-size: 80px;
     margin: 5px auto;
     padding: 5px 0;
@@ -20,30 +20,7 @@
 
   ul {
     button {
-      font-size: 16px;
       margin: 10px;
-      font-weight: bold;
-      color: $white;
-      background-color: $color-1;
-      border: none;
-      border-radius: 50px;
-      padding: 12px 24px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      cursor: pointer;
-    }
-
-    :hover {
-      opacity: 0.8;
-    }
-
-    :focus {
-      outline: none;
-    }
-
-    :active {
-      transform: translateY(1px);
     }
   }
 }

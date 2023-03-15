@@ -5,10 +5,12 @@
 
 $font-1: "font-1", sans-serif;
 $back-color : rgb(168, 198, 213);
-$color-1: #265b6a;
+$color_1: rgb(38, 91, 106);
+$color_2: rgb(106, 91, 91);
+$color_3: #282c34;
+$color_4: rgb(37, 37, 85);
 $fav_color: rgb(209, 134, 125);
 $retweet_color: rgb(134, 209, 125);
-$color-3: #282c34;
 $white: rgb(243, 243, 243);
 
 @mixin verticalCenter {
@@ -24,12 +26,44 @@ $white: rgb(243, 243, 243);
 }
 
 body {
-  // background-image: url(../assets/img/main.avif);
-  // background-size: cover;
   background-color: $back-color;
   font-family: $font-1;
 }
 
 li {
   list-style-type: none;
+}
+
+button {
+  padding: 15px 24px;
+  font-size: 16px;
+  color: $white;
+  background-color: $color-1;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+textarea {
+  resize: none;
+  border: solid 1px $color_1;
+  padding: 10px;
+  opacity: 0.8;
+}
+
+img {
+  cursor: pointer;
 }

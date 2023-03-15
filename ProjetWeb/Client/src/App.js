@@ -5,7 +5,8 @@ import Home from './pages/Home';
 import Inscription from './pages/Inscription';
 import Profil from "./pages/Profil";
 import Reglage from './pages/Reglage';
-
+import Research from './pages/Research';
+import Tweet from './pages/Tweet';
 const App = () => {
   return (
     <BrowserRouter>
@@ -15,6 +16,8 @@ const App = () => {
         <Route path='/reglage' element={<Reglage />} />
         <Route path='/inscription' element={<Inscription />} />
         <Route path='/connexion' element={<Connexion />} />
+        <Route path='/recherche' element={<Research />} />
+        <Route path='/tweet' element={<Tweet />} />
       </Routes>
     </BrowserRouter>
   );

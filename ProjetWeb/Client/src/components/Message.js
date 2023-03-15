@@ -4,14 +4,14 @@ import coeur_icon from '../assets/img/coeur.svg';
 import msg_icon from '../assets/img/message.svg';
 import retweet_icon from '../assets/img/retweet.svg'
 
-const Message = () => {
+const Message = (props) => {
     const [id, setId] = useState("UneEtrangePersonne")
     const [date, setDate] = useState(new Date());
     const [rt, setRt] = useState(0)
     const [aRt, setaRt] = useState(false)
     const [fav, setFav] = useState(0)
     const [aFav, setaFav] = useState(false)
-    const Reponse = useState("");
+    const Reponse = useState({});
 
     const [message, setMessage] = useState(
         "La vie est une aventure passionnante remplie de hauts et de bas. Parfois, il faut faire face à des défis difficiles, mais cela peut nous aider à grandir et à apprendre. Il est important de profiter des moments de bonheur et de les savourer pleinement. "
@@ -45,8 +45,8 @@ const Message = () => {
         return (
             <section>
                 <div className='contains'>
-                    <h3 >@{id}</h3>
-                    <p >{message}</p>
+                    <h2 >@{props.id}</h2>
+                    <p >{props.message}</p>
                 </div>
 
                 <ul>
@@ -79,11 +79,11 @@ const Message = () => {
     }
 
     return (
-        <main className='message'>
+        <div className='message'>
             <ul>
                 <MessageBody />
             </ul>
-        </main>
+        </div>
     );
 };
 

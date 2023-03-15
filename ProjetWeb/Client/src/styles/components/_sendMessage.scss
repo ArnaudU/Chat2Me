@@ -1,0 +1,13 @@
+.sendmessage {
+    @include verticalCenter;
+    flex-direction: column;
+
+    textarea {
+        margin: 50px;
+        height: 20vh;
+        width: 80%;
+        padding: 10px;
+        font-size: 20px;
+        opacity: 0.8;
+    }
+}

@@ -5,15 +5,6 @@ function FormulaireConnexion() {
     const [login, setLogin] = useState('');
     const [mdp, setMdp] = useState('');
     const [reessaye, setReessaye] = useState(0)
-    function onChangeSetLogin(event) {
-        event.preventDefault();
-        setLogin(event.target.value)
-    }
-
-    function onChangeSetMdp(event) {
-        event.preventDefault();
-        setMdp(event.target.value)
-    }
 
     function connect(event) {
         event.preventDefault();
@@ -28,13 +19,13 @@ function FormulaireConnexion() {
                     <label htmlFor="login">
                         Login
                     </label>
-                    <input type="text" onChange={onChangeSetLogin} autoComplete="current-username" />
+                    <input type="text" onChange={(e) => setLogin(e.target.value)} autoComplete="current-username" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">
                         Mot de passe
                     </label>
-                    <input type="password" onChange={onChangeSetMdp} autoComplete="current-password" />
+                    <input type="password" onChange={(e) => setMdp(e.target.value)} autoComplete="current-password" />
                 </div>
                 <ul>
                     <button type="submit" >Connecter</button>

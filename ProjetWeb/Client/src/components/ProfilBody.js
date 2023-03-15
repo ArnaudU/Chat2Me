@@ -1,24 +1,25 @@
 import React, { useState } from 'react';
-
+import ListMessage from "../components/ListMessage"
 const ProfilBody = () => {
-    const [nbFollowed, setNbFolowed] = useState(0);
-    const [nbFollower, setnbFollower] = useState(0);
+    const [nbFollowed, setNbFollowed] = useState(0);
+    const [nbFollower, setNbFollower] = useState(0);
     const [bio, setBio] = useState("");
     const [listMessage, setListMessage] = useState("");
 
     return (
-        <div className='profil'>
-            <button>Suivre</button>
-            <p>@identifiant</p>
-            <p>nom prenom?</p>
-            <p>bio?</p>
-            <p>Nombre d'abonne</p>
-            <p>Nombre d'abonnement</p>
-            <ul>ListMessage qu'il a ecrit </ul>
+        <div className='profilBody'>
+            <form >
+                <button>Suivre</button>
+                <p id='identifiant'>@identifiant</p>
+                <p>Nom Prénom</p>
+                <p id='bio'>Bio</p>
+                <p id='nbFollowed'>Nombre d'abonnés : {nbFollowed}</p>
+                <p id='nbFollower'>Nombre d'abonnements : {nbFollower}</p>
 
+            </form>
+            <ListMessage />
         </div>
     );
-
 }
 
 export default ProfilBody;

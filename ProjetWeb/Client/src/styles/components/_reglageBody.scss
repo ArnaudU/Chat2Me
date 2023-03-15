@@ -1,0 +1,51 @@
+.reglageBody {
+    flex-direction: column;
+    @include verticalCenter;
+
+    border-bottom: 10px solid $color_1;
+
+    h1 {
+
+        font-size: 50px;
+        color: $color_1;
+        padding-top: 4%;
+        padding-bottom: 30px;
+    }
+
+    form {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 30px;
+
+    }
+
+    form>div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    label {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    input[type='password'],
+    input[type='text'] {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+        height: 125px;
+        width: 120%;
+    }
+
+    button {
+        margin-bottom: 20px;
+    }
+}
