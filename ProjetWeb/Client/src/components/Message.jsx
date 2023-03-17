@@ -5,11 +5,10 @@ import msg_icon from '../assets/img/message.svg';
 import retweet_icon from '../assets/img/retweet.svg'
 
 const Message = (props) => {
-    const [id, setId] = useState("UneEtrangePersonne")
     const [date, setDate] = useState(new Date());
-    const [rt, setRt] = useState(0)
+    const [rt, setRt] = useState(props.rt)
     const [aRt, setaRt] = useState(false)
-    const [fav, setFav] = useState(0)
+    const [fav, setFav] = useState(props.fav)
     const [aFav, setaFav] = useState(false)
     const Reponse = useState({});
 
@@ -20,7 +19,7 @@ const Message = (props) => {
     function favOnClick(event) {
         event.preventDefault();
         if (!aFav) {
-            setFav(fav + 1);
+            setFav(fav + 1)
             setaFav(true)
         }
         else {
@@ -32,8 +31,9 @@ const Message = (props) => {
     function rtOnClick(event) {
         event.preventDefault();
         if (!aRt) {
-            setRt(rt + 1);
+            setRt(rt + 1)
             setaRt(true)
+
         }
         else {
             setRt(rt - 1)
@@ -53,12 +53,12 @@ const Message = (props) => {
                     <li>
                         <img id="msg" src={msg_icon} alt="Commentaire" />
                     </li>
-                    <li id='retweet' className='compteur'>
+                    <li id='retweet' className={aRt ? "rtcolor" : ""}>
                         <img id='rt' src={retweet_icon} alt="Rt" onClick={rtOnClick} />
                         <span>{rt}</span>
 
                     </li>
-                    <li id='fav' className='compteur'>
+                    <li id='fav' className={aFav ? "favcolor" : ""}>
                         <img src={coeur_icon} alt="Like" onClick={favOnClick} />
                         <span>{fav}</span>
 

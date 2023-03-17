@@ -1,14 +1,14 @@
 import React from 'react';
-import Asside from '../components/Asside';
+import Asside from '../components/NavBar';
 import Banniere from '../components/Banniere';
-import ResearchBody from '../components/ResearchBody';
+import ResearchContext from '../components/ResearchContext';
 
 const Research = () => {
     return (
         <div>
             <Banniere />
             <Asside />
-            <ResearchBody />
+            <ResearchContext />
         </div>
     );
 };

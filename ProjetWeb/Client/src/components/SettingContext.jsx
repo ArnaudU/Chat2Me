@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-
+import React, { createContext, useState } from 'react';
+import { ThemeProvider } from './Theme';
 const ReglageBody = () => {
     // états pour les champs de formulaire
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [bio, setBio] = useState('');
+
 
     // fonction pour gérer la soumission du formulaire de changement de mot de passe
     const handlePasswordSubmit = (e) => {
@@ -34,6 +35,7 @@ const ReglageBody = () => {
     return (
         <div className='reglageBody'>
             <h1>Réglages</h1>
+            <ThemeProvider />
             <form onSubmit={handlePasswordSubmit}>
                 <h2>Changer le mot de passe</h2>
                 <div>
@@ -69,9 +71,9 @@ const ReglageBody = () => {
                     />
                 </div>
                 <button type='submit'>Modifier</button>
-            </form>
+            </form >
             <button onClick={handleDeconnexion}>Se déconnecter</button>
-        </div>
+        </div >
     );
 };
 

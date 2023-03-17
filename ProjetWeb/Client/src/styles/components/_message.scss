@@ -48,18 +48,32 @@
             #fav:hover {
                 background-color: $fav_color;
                 border-radius: 20px;
+                opacity: 0.8;
             }
 
             #retweet:hover {
                 background-color: $retweet_color;
                 border-radius: 20px;
+                opacity: 0.8;
+            }
+
+            #msg:hover {
+                background-color: $message_color;
             }
 
             .date {
                 margin-right: 15vh;
             }
+        }
 
+        .favcolor {
+            background-color: $fav_color;
+            border-radius: 20px;
+        }
 
+        .rtcolor {
+            background-color: $retweet_color;
+            border-radius: 20px;
         }
     }
 }

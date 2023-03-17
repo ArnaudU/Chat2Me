@@ -34,8 +34,14 @@
             border-radius: 10px;
             width: 100%;
             margin-bottom: 15px;
+            font-size: 18px;
         }
 
+    }
+
+    h1#warning {
+        color: $warning;
+        font-size: 20px;
     }
 
     ul {

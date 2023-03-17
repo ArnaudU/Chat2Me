@@ -3,7 +3,8 @@ import React from 'react';
 const SendMessage = () => {
     return (
         <div className='sendmessage'>
-            <textarea placeholder='Écrivez votre message ici...'></textarea>
+            <h1>Tweet</h1>
+            <textarea placeholder="Quoi de neuf?"></textarea>
             <button>Envoyer</button>
         </div>
     );

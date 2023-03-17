@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
 import Banniere from '../components/Banniere';
+import { UserProvider } from '../context/Utilisateur';
 
 function FormulaireConnexion() {
     const [login, setLogin] = useState('');
     const [mdp, setMdp] = useState('');
-    const [reessaye, setReessaye] = useState(0)
+    const [errorConnexion, setErrorConnexion] = useState("");
 
-    function connect(event) {
+    async function connect(event) {
         event.preventDefault();
-        // IL faut faire un get http ici
+        try {
+            window.location.href = "/";
+        }
+        catch (errorConnexion) {
+            setErrorConnexion(errorConnexion.message)
+        }
     }
 
     return (
         <div className='formulaire'>
             <h1>Connexion</h1>
-            <form action="/connexion" method="post">
+            <form action="/connexion" method="POST" onSubmit={connect}>
                 <div className="form-group">
                     <label htmlFor="login">
                         Login
@@ -31,6 +38,7 @@ function FormulaireConnexion() {
                     <button type="submit" >Connecter</button>
                     <button type="reset" id="btnAnnuler">Annuler</button>
                 </ul>
+                <h1 id="warning">{errorConnexion}</h1>
                 <div id='redirection'>
                     Vous n'avez pas de compte ? <a href="/inscription">Inscrivez-vous</a>.
                 </div>
@@ -40,7 +48,7 @@ function FormulaireConnexion() {
 }
 
 
-const Connexion = () => {
+const Connexion = (props) => {
     return (
         <div>
             <Banniere />

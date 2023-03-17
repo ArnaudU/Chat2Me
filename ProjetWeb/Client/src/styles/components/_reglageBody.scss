@@ -2,13 +2,11 @@
     flex-direction: column;
     @include verticalCenter;
 
-    border-bottom: 10px solid $color_1;
-
     h1 {
 
         font-size: 50px;
         color: $color_1;
-        padding-top: 4%;
+        padding-top: 2%;
         padding-bottom: 30px;
     }
 
@@ -46,6 +44,55 @@
     }
 
     button {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+    }
+
+    .theme {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        input {
+            display: none;
+        }
+
+        label {
+            display: inline-block;
+            position: relative;
+            margin-left: 25px;
+            height: 30px;
+            width: 50px;
+            transition: all .3s;
+            border-radius: 60px;
+            cursor: pointer;
+            background-color: $white;
+            /* Couleur de fond par défaut */
+            border: none;
+            /* Supprimer la bordure */
+            outline: none;
+            /* Supprimer l'effet de focus */
+        }
+
+        label:after {
+            content: "";
+            height: 20px;
+            width: 20px;
+            background-color: $black;
+            /* Couleur du cercle */
+            position: absolute;
+            top: 5px;
+            transition: all .3s;
+            border-radius: 50%;
+            left: 5px;
+            /* Position du cercle à gauche par défaut */
+        }
+
+        input:checked+label:after {
+            transform: translateX(20px);
+        }
+
+        input:checked+label {
+            background-color: $color_1;
+        }
     }
 }

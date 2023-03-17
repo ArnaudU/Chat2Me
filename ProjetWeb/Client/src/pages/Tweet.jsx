@@ -1,15 +1,15 @@
 import React from 'react';
-import Asside from '../components/Asside';
+import Asside from '../components/NavBar';
 import Banniere from '../components/Banniere';
-import ProfilBody from '../components/ProfilBody'
-const Profil = () => {
+import SendMessage from '../components/SendMessage';
+const Tweet = () => {
     return (
         <div>
             <Banniere />
             <Asside />
-            <ProfilBody />
+            <SendMessage />
         </div>
     );
 };
 
-export default Profil;
+export default Tweet;

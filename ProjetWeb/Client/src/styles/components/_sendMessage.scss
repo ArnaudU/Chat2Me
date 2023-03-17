@@ -2,12 +2,15 @@
     @include verticalCenter;
     flex-direction: column;
 
+    h1 {
+        margin-top: 50px;
+        color: $color_4;
+    }
+
     textarea {
         margin: 50px;
         height: 20vh;
         width: 80%;
         padding: 10px;
-        font-size: 20px;
-        opacity: 0.8;
     }
 }

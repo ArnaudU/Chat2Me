@@ -11,22 +11,22 @@ const Asside = () => {
     return (
         <aside className="asside">
             <ul>
-                <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+                <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>
                     <img id='home' src={home} alt="Accueil" />
                 </NavLink>
-                <NavLink to="/profil" className={(nav) => (nav.isActive ? "nav-active" : "")} >
+                <NavLink to="/profil" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")} >
                     <img src={profil} alt="Profil" />
                 </NavLink>
-                <NavLink to="/recherche" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+                <NavLink to="/recherche" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>
                     <img src={loupe} alt="Recherche" />
                 </NavLink>
-                <NavLink id='reglage' to="/reglage" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+                <NavLink id='reglage' to="/reglage" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>
                     <img src={engrenage} alt="Settings" />
                 </NavLink>
-                <NavLink id='tweet' to="/tweet" className={(nav) => (nav.isActive ? "nav-active" : "")}>
+                <NavLink id='tweet' to="/tweet" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>
                     <img src={plus} alt="" />
                 </NavLink>
-                <NavLink to="" >
+                <NavLink to="" className="grow">
                     <img id="deconnexion" src={deconnexion} alt="Deconnecter" />
                 </NavLink>
             </ul>
