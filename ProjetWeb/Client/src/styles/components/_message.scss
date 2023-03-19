@@ -37,10 +37,8 @@
                     vertical-align: middle;
                 }
 
-
                 span {
                     padding-right: 10px;
-                    text-align: right;
                 }
 
             }
@@ -59,6 +57,7 @@
 
             #msg:hover {
                 background-color: $message_color;
+                opacity: 0.8;
             }
 
             .date {

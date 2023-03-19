@@ -1,6 +1,6 @@
 import React from 'react';
 
 export default React.createContext({
-    isSombreMode: false,
-    setIsSombreMode: value => { }
+    isAuth: false,
+    setIsAuth: value => { }
 });

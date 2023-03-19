@@ -5,8 +5,6 @@ import SendMessage from '../components/SendMessage';
 const Tweet = () => {
     return (
         <div>
-            <Banniere />
-            <Asside />
             <SendMessage />
         </div>
     );

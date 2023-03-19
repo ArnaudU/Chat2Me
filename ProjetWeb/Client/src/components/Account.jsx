@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ResearchBody = () => {
+const Account = () => {
     return (
         <div>
 
@@ -8,4 +8,4 @@ const ResearchBody = () => {
     );
 };
 
-export default ResearchBody;
+export default Account;

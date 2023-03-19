@@ -3,11 +3,26 @@ import Message from './Message';
 //variable pour récuperer une liste de message
 
 const ListMessage = () => {
+    const posts = [
+        {
+            id: 1,
+            username: "Moi",
+            content: "Bienvenue sur World Bird!",
+            fav: 1,
+            retweet: 5,
+            date: new Date(),
+        }
+    ];
     return (
         <div>
-            <Message id="Moi" fav={10} rt={10} message="Bonjour" />
-            <Message id="Lui" fav={10} rt={10} message="salut" />
-            <Message id="Toi" fav={10} rt={10} message="Coucou" />
+            {posts.map((post) =>
+                <Message
+                    username={post.username}
+                    content={post.content}
+                    fav={post.fav}
+                    rt={post.retweet}
+                />
+            )}
         </div>
     );
 };

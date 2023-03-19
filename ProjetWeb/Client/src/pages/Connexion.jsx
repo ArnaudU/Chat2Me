@@ -1,44 +1,64 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import Banniere from '../components/Banniere';
-import { UserProvider } from '../context/Utilisateur';
+import Auth from '../context/AuthContext';
+import { login } from '../services/AuthApi';
 
-function FormulaireConnexion() {
-    const [login, setLogin] = useState('');
-    const [mdp, setMdp] = useState('');
-    const [errorConnexion, setErrorConnexion] = useState("");
+function FormulaireConnexion({ history }) {
+    const [user, setUser] = useState({
+        username: "",
+        password: ""
+    })
+    const [errorAuth, setErrorAuth] = useState("");
+    const { isAuth, setIsAuth } = useContext(Auth);
 
-    async function connect(event) {
+    function handleChange({ currentTarget }) {
+        const { name, value } = currentTarget;
+
+        setUser({ ...user, [name]: value })
+    }
+
+    async function handleSubmit(event) {
         event.preventDefault();
         try {
-            window.location.href = "/";
+            const response = await login(user);
+            console.log(response)
+            setIsAuth(response);
+            history.replace('/profil');
         }
-        catch (errorConnexion) {
-            setErrorConnexion(errorConnexion.message)
+        catch (errorAuth) {
+            setErrorAuth(errorAuth.message)
         }
     }
 
     return (
         <div className='formulaire'>
-            <h1>Connexion</h1>
-            <form action="/connexion" method="POST" onSubmit={connect}>
+            <form action="/connexion" method="POST" onSubmit={handleSubmit}>
+                <h1>Connexion</h1>
                 <div className="form-group">
                     <label htmlFor="login">
                         Login
                     </label>
-                    <input type="text" onChange={(e) => setLogin(e.target.value)} autoComplete="current-username" />
+                    <input
+                        type="text"
+                        name="username"
+                        onChange={handleChange}
+                        placeholder="Login" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">
                         Mot de passe
                     </label>
-                    <input type="password" onChange={(e) => setMdp(e.target.value)} autoComplete="current-password" />
+                    <input
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        placeholder="Mot de passe" />
                 </div>
                 <ul>
                     <button type="submit" >Connecter</button>
                     <button type="reset" id="btnAnnuler">Annuler</button>
                 </ul>
-                <h1 id="warning">{errorConnexion}</h1>
+                <h1 id="warning">{errorAuth}</h1>
                 <div id='redirection'>
                     Vous n'avez pas de compte ? <a href="/inscription">Inscrivez-vous</a>.
                 </div>
@@ -51,7 +71,6 @@ function FormulaireConnexion() {
 const Connexion = (props) => {
     return (
         <div>
-            <Banniere />
             <FormulaireConnexion />
         </div>
     );

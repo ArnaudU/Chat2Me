@@ -1,14 +1,10 @@
 import React from 'react';
-import Asside from '../components/NavBar';
-import Banniere from '../components/Banniere';
-import ResearchContext from '../components/ResearchContext';
+import ResearchComp from '../components/ResearchComp';
 
 const Research = () => {
     return (
         <div>
-            <Banniere />
-            <Asside />
-            <ResearchContext />
+            <ResearchComp />
         </div>
     );
 };

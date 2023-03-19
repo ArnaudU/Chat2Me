@@ -16,8 +16,8 @@ $retweet_color: rgb(22, 75, 16);
 $message_color: rgb(134, 125, 209);
 $white: rgb(243, 243, 243);
 $black: #282c34;
-
-
+$valid: rgb(25, 100, 25);
+$false: rgb(100, 25, 25);
 
 div.light-mode {
 
@@ -34,22 +34,23 @@ div.light-mode {
 
 }
 
-@mixin verticalCenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   color: $color_1;
-}
-
-body {
   background-color: $back-color;
   font-family: $font-1;
+}
+
+.hide {
+  display: none;
+}
+
+@mixin verticalCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 li {

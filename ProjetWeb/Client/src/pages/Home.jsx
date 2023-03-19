@@ -6,8 +6,6 @@ import ListMessage from '../components/ListMessage';
 const Home = (props) => {
     return (
         <div>
-            <Banniere theme={props.theme} />
-            <Asside />
             <ListMessage />
         </div>
     );

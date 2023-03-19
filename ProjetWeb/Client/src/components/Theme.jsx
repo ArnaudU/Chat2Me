@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ThemeContext from '../context/ThemeContext';
+
 function ThemeProvider({ children }) {
     const [theme, setTheme] = useState(ThemeContext);
 

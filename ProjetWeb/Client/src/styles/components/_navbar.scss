@@ -1,8 +1,10 @@
-.asside {
+.navbar {
   height: 100%;
   display: flex;
   float: left;
-  border-right: 10px solid $color_1;
+  border-right: 5px solid $color_1;
+  padding-bottom: 18vh;
+
 
   /* ou la largeur souhaitée */
   ul {
@@ -19,6 +21,7 @@
         width: 65px;
         object-fit: contain;
       }
+
 
       &.grow {
         transition: all .2s ease-in-out;

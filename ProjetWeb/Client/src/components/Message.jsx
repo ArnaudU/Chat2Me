@@ -12,10 +12,6 @@ const Message = (props) => {
     const [aFav, setaFav] = useState(false)
     const Reponse = useState({});
 
-    const [message, setMessage] = useState(
-        "La vie est une aventure passionnante remplie de hauts et de bas. Parfois, il faut faire face à des défis difficiles, mais cela peut nous aider à grandir et à apprendre. Il est important de profiter des moments de bonheur et de les savourer pleinement. "
-    )
-
     function favOnClick(event) {
         event.preventDefault();
         if (!aFav) {
@@ -45,22 +41,21 @@ const Message = (props) => {
         return (
             <section>
                 <div className='contains'>
-                    <h2 >@{props.id}</h2>
-                    <p >{props.message}</p>
+                    <h2 >@{props.username}</h2>
+                    <p >{props.content}</p>
                 </div>
 
                 <ul>
                     <li>
                         <img id="msg" src={msg_icon} alt="Commentaire" />
                     </li>
-                    <li id='retweet' className={aRt ? "rtcolor" : ""}>
-                        <img id='rt' src={retweet_icon} alt="Rt" onClick={rtOnClick} />
+                    <li>
+                        <img className={aRt ? "rtcolor" : ""} id='retweet' src={retweet_icon} alt="Rt" onClick={rtOnClick} />
                         <span>{rt}</span>
-
                     </li>
-                    <li id='fav' className={aFav ? "favcolor" : ""}>
-                        <img src={coeur_icon} alt="Like" onClick={favOnClick} />
-                        <span>{fav}</span>
+                    <li >
+                        <img className={aFav ? "favcolor" : ""} id='fav' src={coeur_icon} alt="Like" onClick={favOnClick} />
+                        <span >{fav}</span>
 
                     </li>
 
