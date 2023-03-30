@@ -1,0 +1,49 @@
+.banniereFormulaire {
+  display: flex;
+  align-items: center;
+  border-bottom: 10px solid $color_1;
+  padding-left: 150px;
+
+
+  h1 {
+    @include verticalCenter;
+    color: $color_1;
+    font-size: 80px;
+    margin: 5px auto;
+    padding: 5px 0;
+  }
+
+  button {
+    margin: 10px;
+  }
+}
+
+.banniere {
+  display: fixed;
+  border-bottom: 10px solid $color_1;
+  padding-left: 150px;
+
+
+  h1 {
+    @include verticalCenter;
+    color: $color_1;
+    font-size: 80px;
+    margin: 5px auto;
+    padding: 5px 0;
+  }
+
+  form {
+    @include verticalCenter;
+    padding-bottom: 20px;
+
+    input {
+      padding-left: 10px;
+      margin-right: 20px;
+      width: 250px;
+      height: 40px;
+      font-size: 22px;
+      border-radius: 10px;
+      border: none;
+    }
+  }
+}

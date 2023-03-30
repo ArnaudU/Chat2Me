@@ -1,0 +1,86 @@
+.message {
+
+
+    section {
+        .contains {
+            .usernameId {
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+
+                h2 {
+                    color: $color_4;
+                }
+            }
+
+            p {
+
+                font-size: 25px;
+                padding-left: 30px;
+                padding-right: 30px;
+                padding-top: 15px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+
+        }
+
+        ul {
+            padding: 12px;
+            border-bottom: 1px solid $color_1;
+            display: flex;
+            padding-left: 19vh;
+            padding-right: 5vh;
+            justify-content: space-between;
+
+            li {
+                @include verticalCenter;
+
+                img {
+                    height: 35px;
+                    width: 35px;
+                    object-fit: contain;
+                    border-radius: 15px;
+                    vertical-align: middle;
+                }
+
+                span {
+                    padding-right: 10px;
+                }
+
+            }
+
+            #fav:hover {
+                background-color: $fav_color;
+                border-radius: 20px;
+                opacity: 0.8;
+            }
+
+            #retweet:hover {
+                background-color: $retweet_color;
+                border-radius: 20px;
+                opacity: 0.8;
+            }
+
+            #msg:hover {
+                background-color: $message_color;
+                opacity: 0.8;
+            }
+
+            .date {
+                margin-right: 15vh;
+            }
+        }
+
+        .favcolor {
+            background-color: $fav_color;
+            border-radius: 20px;
+        }
+
+        .rtcolor {
+            background-color: $retweet_color;
+            border-radius: 20px;
+        }
+    }
+}

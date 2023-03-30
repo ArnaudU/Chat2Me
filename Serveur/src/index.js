@@ -1,16 +1,7 @@
-const express = require("express")
-const app = express()
-const PORT = 8000
+const app = require("./app");
 
-// body parser for json
-const bodyParser = require("body-parser");
-app.use(bodyParser.json());
+const PORT = process.env.PORT || 8000; // définit le port du serveur
 
-// routes
-const routes = require("./routes.js");
-app.use("/", routes);
-
-// server
 app.listen(PORT, () => {
-    console.log('Server listening on port %d', PORT);
+    console.log(`Server is running on port ${PORT}`);
 });

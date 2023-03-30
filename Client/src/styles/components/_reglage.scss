@@ -1,0 +1,57 @@
+.reglageBody {
+
+    flex-direction: column;
+    @include verticalCenter;
+    padding-left: 150px;
+    padding-top: 50px;
+
+
+    h1 {
+
+        font-size: 50px;
+        color: $color_1;
+        padding-top: 2%;
+        padding-bottom: 50px;
+    }
+
+    form {
+        transform: scale(1.15);
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 30px;
+
+    }
+
+    form>div {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    label {
+
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    input {
+        padding-left: 10px;
+        margin-right: 20px;
+        height: 40px;
+        font-size: 22px;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+    }
+
+    textarea {
+        height: 200px;
+
+    }
+
+    button {
+        margin-bottom: 50px;
+    }
+}
