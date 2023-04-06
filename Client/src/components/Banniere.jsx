@@ -9,7 +9,7 @@ const Banniere = (props) => {
         <header className={(isAuth ? "banniere" : "banniereFormulaire")}>
             {/* Les images importées depuis la balise IMG son accessibles dans "public" */}
 
-            < h1 > WorldBird{props.theme}</h1 >
+            < h1 > Chat&Tweet</h1 >
 
             {
                 (!isAuth &&

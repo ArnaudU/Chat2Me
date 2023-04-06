@@ -1,32 +1,95 @@
-const mongoose = require('mongoose')
+const User = require("../schema/userSchema")
+const authError = require("../error/AuthErreur")
+const pageError = require("../error/PageErreur")
+const serveurError = require("../error/ServeurErreur")
+const userError = require("../error/UserErreur")
 
-function createUser(req, res) {
-    let username = req.body.username;
-    let pwd = req.body.pwd;
-    let name = req.body.name;
-    //on ecrit dans la base de donnée
-    res.status(200).send(`Bienvenue ${name} vous etes bien inscrit sur WorldBird!`)
+function deleteUser(req, res) {
+    if (req.session.loggedIn) {
+        User.deleteOne({ username: req.session.user })
+            .then((data) => {
+                if (data.deletedCount != 1) {
+                    userError(res)
+                    return;
+                }
+                req.session.destroy()
+                res.status(200).send("Utilisateur supprimer avec succes");
+            })
+            .catch((err) => {
+                console.error(err)
+                serveurError(res)
+            })
+    }
+    else {
+        authError(res)
+    }
+
 }
 
-function login(req, res) {
-
+function findUser(res, who) {
+    User.findOne({ username: who })
+        .then((data) => {
+            if (!data) {
+                res.status(404).send("Utilisateur non retrouvé ou utilisateur multiple")
+                return;
+            }
+            res.status(200).send(
+                {
+                    "name": data.name,
+                    "username": data.username,
+                    "followers": data.followers.length,
+                    "following": data.following.length
+                })
+        })
+        .catch((err) => {
+            console.error(err);
+            serveurError(res)
+        });
 }
-function logout(req, res) {
 
-}
 
-function getId(req, res) {
-
+function getMyInfo(req, res) {
+    if (req.session.loggedIn) {
+        findUser(res, req.session.user)
+    }
+    else {
+        authError(res);
+    }
 }
 
 function getInfo(req, res) {
-
+    if (req.session.loggedIn) {
+        findUser(res, req.params.id)
+    }
+    else {
+        authError(res);
+    }
 }
 
+function setDescription(req, res) {
+    if (req.session.loggedIn) {
+        User.findOneAndUpdate(
+            { username: req.params.id },
+            { description: req.body.description }
+        )
+            .then(() => {
+                console.log("Ok")
+                res.status(200).send("Bio modifier!")
+            })
+            .catch((err) => {
+                console.error(err);
+                serveurError(res)
+            })
+    }
+    else {
+        authError(res)
+    }
+}
+
+
 module.exports = {
-    createUser: createUser,
-    login: login,
-    logout: logout,
-    getId: getId,
-    getInfo: getInfo
+    getMyInfo: getMyInfo,
+    getInfo: getInfo,
+    deleteUser: deleteUser,
+    setDescription: setDescription
 };

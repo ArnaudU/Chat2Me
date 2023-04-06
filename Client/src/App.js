@@ -3,13 +3,11 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from './context/AuthContext';
 import { hasAuth } from './services/AuthApi';
 import SideBar from './components/SideBar';
-import Account from './components/Account';
 import Connexion from './pages/Connexion';
 import Home from './pages/Home';
 import Inscription from './pages/Inscription';
 import Profil from "./pages/Profil";
 import Setting from './pages/Setting';
-import Research from './pages/Research';
 import Tweet from './pages/Tweet';
 import Banniere from './components/Banniere';
 
@@ -26,7 +24,6 @@ const App = () => {
         <Route path='/tweet' element={isAuth ? <Tweet /> : <Navigate replace to="/auth" />} />
         <Route path='/reglage' element={isAuth ? <Setting /> : <Navigate replace to="/auth" />} />
         <Route path='/user/:id' element={isAuth ? <Profil /> : <Navigate replace to="/auth" />} />
-        <Route path='/account' element={isAuth ? <Account /> : <Navigate replace to="/auth" />} />
         <Route path='/*' element={<Navigate replace to="/auth" />} />
       </Routes >
 

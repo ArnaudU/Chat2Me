@@ -11,7 +11,7 @@ const FormulaireInscription = () => {
     const [user, setUser] = useState({
         username: "",
         name: "",
-        password: "",
+        pwd: "",
     })
 
     function handleChange({ currentTarget }) {
@@ -43,10 +43,10 @@ const FormulaireInscription = () => {
             if (user.username.length <= LENGTH_MIN_USERNAME) {
                 throw new Error("*Il faut un login d'au moins 5 caractères");
             }
-            if (confirmer !== user.password) {
+            if (confirmer !== user.pwd) {
                 throw new Error("*Les deux mots de passe ne sont pas la meme")
             }
-            if (user.password.length <= LENGTH_MIN_PASSWORD) {
+            if (user.pwd.length <= LENGTH_MIN_PASSWORD) {
                 throw new Error("*Mot de passe trop court")
             }
             if (hasSpecialCharacters(user.name) || hasSpecialCharacters(user.login)) {
@@ -89,24 +89,24 @@ const FormulaireInscription = () => {
                         placeholder="Login"
                     />
                 </div>
-                <div className={(user.password.length < LENGTH_MIN_PASSWORD)
+                <div className={(user.pwd.length < LENGTH_MIN_PASSWORD)
                     ? "form-group red" : "form-group green"}>
-                    <label htmlFor="password">
+                    <label htmlFor="pwd">
                         Mot de passe
                     </label>
                     <input
-                        type="password"
-                        name="password"
+                        type="pwd"
+                        name="pwd"
                         onChange={handleChange}
                         placeholder="Mot de passe"
                     />
                 </div>
-                <div className={(user.password !== confirmer) ? "form-group red" : "form-group green"}>
+                <div className={(user.pwd !== confirmer) ? "form-group red" : "form-group green"}>
                     <label htmlFor="retapper">
                         Confirmer
                     </label>
                     <input
-                        type="password"
+                        type="pwd"
                         onChange={(event) =>
                             setConfirmer(event.target.value)
                         }

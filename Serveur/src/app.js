@@ -1,13 +1,27 @@
 const express = require("express");
-const api = require("./api");
-const mongoose = require('mongoose')
+const routes = require("./routes");
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const app = express();
+const session = require('express-session');
 
 app.use(express.json()); // permet de lire les données JSON envoyées par les clients
 
-app.use("/", api); // monte l'API sur /api
+app.use(session({
+    secret: 'JK192DFKDFD582FDF41',
+    name: 'sessionId',
+    resave: false,
+    saveUninitialized: true
+}));
 
-const dbURI = process.env.DATABASE_URI || 'mongodb://localhost:27017/';
+// monte l'API sur /api
+app.use('/api', routes);
+
+// Configuration du middleware pour analyser les corps des requêtes HTTP
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+const dbURI = process.env.DATABASE_URI || 'mongodb://127.0.0.1:27017';
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {

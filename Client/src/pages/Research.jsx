@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Navigate } from "react-router-dom";
 const Research = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const handleInputChange = event => {

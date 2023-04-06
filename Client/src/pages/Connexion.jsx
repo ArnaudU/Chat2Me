@@ -6,7 +6,7 @@ import { login } from '../services/AuthApi';
 function FormulaireConnexion({ history }) {
     const [user, setUser] = useState({
         username: "",
-        password: ""
+        pwd: ""
     })
     const [errorAuth, setErrorAuth] = useState("");
     const { isAuth, setIsAuth } = useContext(Auth);
@@ -20,7 +20,7 @@ function FormulaireConnexion({ history }) {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            const response = await axios.get("http://localhost:8000/user", { user })
+            const response = await axios.get("http://localhost:8000/api/login", { user })
             console.log(response.data)
             setIsAuth(response);
             history.replace('/profil');
@@ -45,12 +45,12 @@ function FormulaireConnexion({ history }) {
                         placeholder="Login" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">
+                    <label htmlFor="pwd">
                         Mot de passe
                     </label>
                     <input
-                        type="password"
-                        name="password"
+                        type="pwd"
+                        name="pwd"
                         onChange={handleChange}
                         placeholder="Mot de passe" />
                 </div>

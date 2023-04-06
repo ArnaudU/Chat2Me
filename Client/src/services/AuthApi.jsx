@@ -10,7 +10,7 @@ export function hasAuth() {
         removeItem('token');
     }
 
-    return true;
+    return false;
 }
 
 export async function login(credentials) {
