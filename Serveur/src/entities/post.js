@@ -1,6 +1,6 @@
 const Post = require("../schema/postSchema")
 const User = require("../schema/userSchema")
-const mongoose = require('mongoose');
+const Follow = require('../schema/followSchema')
 const authError = require("../error/AuthErreur")
 const pageError = require("../error/PageErreur")
 const serveurError = require("../error/ServeurErreur")
@@ -13,7 +13,8 @@ async function createMessage(req, res) {
             if (user) {
                 let newComment = new Post({
                     content: req.body.content,
-                    user: user.id
+                    user: user.id,
+                    username: user.username
                 });
                 await newComment.save()
                 res.status(200).send("Votre post est bien ajouté!")
@@ -34,76 +35,149 @@ async function getPost(msgid) {
     return await Post.findOne({ _id: msgid });
 }
 
-async function changeMessage(req, res) {
+async function setOrDelMessage(req, res) {
+    if (!req.session) {
+        return authError(res)
+    }
     try {
-        if (req.session.user) {
-            let post = getPost(req.params.msgid)
-            if (!post) {
-                res.status(404).json({ error: 'Message non trouvé' })
+        let post = getPost(req.params.msgid)
+        if (!post) {
+            pageError(res)
+        }
+        if (post.user.equals(req.session.user_id)) {
+            if (req.method === 'POST') {
+                await Post.findOneAndUpdate(
+                    {
+                        _id: req.params.msgid,
+                        user: req.session.user_id
+                    },
+                    { $set: { content: req.body.content } }
+                )
+                res.status(200).send("Message modifier!")
+                return
             }
-            if (post.user.equals(req.session.user_id)) {
-                if (req.method === 'POST') {
-                    await Post.findOneAndUpdate(
-                        {
-                            _id: req.params.msgid,
-                            user: req.session.user_id
-                        },
-                        { $set: { content: req.body.content } }
-                    )
-                    res.status(200).send("Message modifier!")
-                    return
-                }
-                if (req.method === 'DELETE') {
-                    await Post.deleteOne(
-                        {
-                            _id: req.params.msgid,
-                            user: req.session.user_id
-                        },
-                    )
-                    res.status(200).send("Message supprimer!")
-                }
-            }
-            else {
-                res.status(401).json({ error: 'Ce message ne vous appartient pas!' })
+            if (req.method === 'DELETE') {
+                await Post.deleteOne(
+                    {
+                        _id: req.params.msgid,
+                        user: req.session.user_id
+                    },
+                )
+                res.status(200).send("Message supprimer!")
             }
         }
         else {
-            authError(res)
+            res.status(401).json({ error: 'Ce message ne vous appartient pas!' })
         }
     }
+
     catch (err) {
         console.log(err)
-        serveurError(res0)
+        serveurError(res)
     }
 }
 
 
-function getMessagesFromFollowsId(req, res) { }
+async function getMessagesFromId(req, res) {
+    if (!req.session.user) {
+        return authError(res)
+    }
+    try {
+        let user = await User.findOne({ username: req.params.id }).select('_id').exec()
+        console.log(user)
+        let posts = await Post.find({ user: user }).select('-_id -__v').exec()
+        res.status(200).json(posts)
+    }
+    catch (err) {
+        console.log(err);
+        serveurError(res)
+    }
+}
 
-function getMessagesFromAllFollows(req, res) { }
+async function getMessagesFromAllFollower(req, res) {
+    if (!req.session.user) {
+        return authError(res)
+    }
+    try {
+        let user = await User.findOne({ username: req.params.id }).select('_id').exec()
+        let follows = await Follow.find({ follower: user }).select('followed -_id').exec()
+        let followedIds = follows.map((follow) => follow.followed)
+        let posts = await Post.find({ user: { $in: followedIds } }).select('-_id -__v').exec()
+        res.status(200).json(posts)
+    }
+    catch (err) {
+        console.log(err);
+        serveurError(res)
+    }
+}
 
-function getStats(req, res) { }
+async function getRecentPost(req, res) {
+    // if (!req.session.user) {
+    //     return authError(res)
+    // }
+    const n = req.query.n || 10; // par défaut, on récupère les 10 posts les plus courants
+    try {
+        const posts = await Post.find()
+            .sort({ createdAt: -1 }) // trier par date de création décroissante
+            .limit(n); // limiter à 10 résultats
+        res.status(200).json(posts).end();
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
+}
 
-function likeMessage(req, res) {
+async function updateLikeOrRt(req, res, array) {
     //req.params.msgid et req.session.user
-    if (req.session.user) {
+    if (!req.session.user) {
+        return authError(res)
+    }
+    try {
+        let post = await Post.findOne(
+            { _id: req.params.msgid }
+        )
+        if (!post) {
+            return pageError;
+        }
+        let action;
+        if (clicked) {
+            // Si l'utilisateur a déjà liké le post, on le retire du tableau
+            action = { $pull: { [array]: req.session.user } };
+        } else {
+            // Sinon, on l'ajoute au tableau
+            action = { $push: { [array]: req.session.user } };
+        }
+        const updatedPost = await Post.findOneAndUpdate(
+            { _id: req.params.msgid },
+            action,
+            { new: true }
+        );
+        if (!updatedPost) {
+            return res.status(400).json({ error: "Impossible de mettre à jour le post." });
+        }
+        res.status(200).json(updatedPost)
+    }
+    catch (err) {
+        console.log(err);
+        serveurError(res)
+    }
+}
 
-    }
-    else {
-        res.send(401).json({ error: "" })
-    }
+async function likeMessage(req, res) {
+    updateLikeOrRt(req, res, "like")
 }
 
 function retweetMessage(req, res) {
-    //req.params.msgid et req.session.useràp
+    //req.params.msgid et req.session.user
+    updateLikeOrRt(req, res, "retweet")
 }
 
 module.exports = {
     createMessage: createMessage,
-    changeMessage: changeMessage,
-    getMessagesFromFollowsId: getMessagesFromFollowsId,
-    getMessagesFromAllFollows: getMessagesFromAllFollows,
-    getStats: getStats,
+    setOrDelMessage: setOrDelMessage,
+    getMessagesFromId: getMessagesFromId,
+    getMessagesFromAllFollower: getMessagesFromAllFollower,
+    getRecentPost: getRecentPost,
     likeMessage: likeMessage,
     retweetMessage: retweetMessage
 }

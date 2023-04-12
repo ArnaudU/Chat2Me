@@ -20,7 +20,7 @@ const Profil = (props) => {
     }
 
     return (
-        <div className='profilBody'>
+        <div className='profilBody main'>
             <form >
                 <button onClick={followOnClick}>{aFollow ? "Retirer" : "Suivre"}</button>
                 <p id='identifiant'>@{id}</p>

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
+import api from '../Api'
 const FormulaireInscription = () => {
     const [confirmer, setConfirmer] = useState("")
     const [error, setError] = useState("")
 
-    const LENGTH_MIN_USERNAME = 6;
+    const LENGTH_MIN_USERNAME = 4;
     const LENGTH_MIN_PASSWORD = 8;
 
     const [user, setUser] = useState({
@@ -52,10 +51,14 @@ const FormulaireInscription = () => {
             if (hasSpecialCharacters(user.name) || hasSpecialCharacters(user.login)) {
                 throw new Error("*Pas de caractère spéciaux pour le nom et login")
             }
-
-            setError("")
-            console.log("OK")
-            // const response = await axios.post("url du post", user)
+            const response = await api.post('/signup', user)
+            if (response.status === 200) {
+                console.log(response.data)
+                setError(response.data)
+            }
+            else {
+                setError(response.data.error)
+            }
         }
         catch (erreur) {
             setError(erreur.message)
@@ -95,7 +98,7 @@ const FormulaireInscription = () => {
                         Mot de passe
                     </label>
                     <input
-                        type="pwd"
+                        type="password"
                         name="pwd"
                         onChange={handleChange}
                         placeholder="Mot de passe"
@@ -106,7 +109,7 @@ const FormulaireInscription = () => {
                         Confirmer
                     </label>
                     <input
-                        type="pwd"
+                        type="password"
                         onChange={(event) =>
                             setConfirmer(event.target.value)
                         }

@@ -5,29 +5,27 @@
   top: 0;
   bottom: 0;
   border-right: 5px solid $color_1;
-  padding-bottom: 18vh;
-  width: 150px;
+  width: 120px;
 
   #first {
-    padding-bottom: 80px;
+    padding-bottom: 10vh;
   }
 
   /* ou la largeur souhaitée */
   ul {
     display: flex;
-    margin: 30px;
+    margin: 20px;
     flex-direction: column;
 
     a {
       padding: 10px;
-      margin-bottom: 30px;
+      margin-bottom: 3vh;
 
       img {
-        height: 65px;
-        width: 65px;
+        height: 50px;
+        width: 50px;
         object-fit: contain;
       }
-
 
       &.grow {
         transition: all .2s ease-in-out;
@@ -37,7 +35,6 @@
         }
       }
     }
-
   }
 
   .nav-active {

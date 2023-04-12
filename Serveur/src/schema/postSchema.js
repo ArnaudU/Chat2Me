@@ -19,6 +19,10 @@ const postSchema = new Schema({
         ref: 'User',
         required: true,
     },
+    username: {
+        type: String, // Ajout de l'attribut username
+        required: true
+    },
     response: {
         type: Array,
         default: []
@@ -29,6 +33,8 @@ const postSchema = new Schema({
     },
     {
         timestamps: true,
-    });
+    }
+);
+
 
 module.exports = mongoose.model('Post', postSchema);

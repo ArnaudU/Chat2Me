@@ -29,7 +29,6 @@ async function signup(req, res) {
             throw new Error("*Pas de caractère spéciaux pour le nom")
         }
         // Création d'un nouvel utilisateur à partir des informations reçues dans la requête
-
         const newUser = new User({
             username: req.body.username,
             pwd: await bcrypt.hash(req.body.pwd, LEN_HASH),
@@ -54,9 +53,9 @@ async function signup(req, res) {
 }
 
 function login(req, res) {
+
     User.findOne({
         username: req.body.username,
-
     })
         .then((user) => {
             if (user && bcrypt.compare(req.body.pwd, user.pwd)) {
@@ -78,6 +77,7 @@ function login(req, res) {
 function logout(req, res) {
     console.log(req)
     req.session.destroy(); // supprimer la session pour déconnecter l'utilisateur
+
     res.status(200).json({ message: 'Vous etes bien déconnecter!' }).end();
 }
 

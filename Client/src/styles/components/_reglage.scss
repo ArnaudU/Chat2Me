@@ -1,45 +1,39 @@
 .reglageBody {
-
     flex-direction: column;
     @include verticalCenter;
-    padding-left: 150px;
-    padding-top: 50px;
-
+    padding-top: 2vh;
 
     h1 {
-
-        font-size: 50px;
         color: $color_1;
-        padding-top: 2%;
-        padding-bottom: 50px;
+        padding-top: 1vh;
+        padding-bottom: 5vh;
+        font-size: 35px;
     }
 
     form {
         transform: scale(1.15);
         width: 100%;
-        max-width: 400px;
-        margin-bottom: 30px;
-
+        max-width: 50vh;
+        margin-bottom: 4vh;
+        font-size: 15px;
     }
 
     form>div {
         display: flex;
         flex-direction: column;
-        margin-bottom: 20px;
+        margin-bottom: 1vh;
     }
 
     label {
-
         margin-top: 20px;
-        margin-bottom: 10px;
-        font-size: 16px;
+        margin-bottom: 1vh;
     }
 
     input {
         padding-left: 10px;
         margin-right: 20px;
-        height: 40px;
-        font-size: 22px;
+        height: 30px;
+        font-size: 16px;
         border: none;
         border-radius: 5px;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -47,11 +41,7 @@
     }
 
     textarea {
-        height: 200px;
-
+        height: 11vh;
     }
 
-    button {
-        margin-bottom: 50px;
-    }
 }

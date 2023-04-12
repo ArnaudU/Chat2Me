@@ -4,14 +4,25 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 const session = require('express-session');
+const cors = require('cors');
 
 app.use(express.json()); // permet de lire les données JSON envoyées par les clients
 
 app.use(session({
     secret: 'JK192DFKDFD582FDF41',
-    name: 'sessionId',
-    resave: false,
-    saveUninitialized: true
+    name: 'session',
+    resave: true,
+    // Cookie Options
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours}
+    }
+}));
+
+app.use(cors()); // Active CORS pour toutes les requêtes
+// ou
+app.use(cors({
+    origin: 'http://localhost:3000', // Remplacez 3000 par le port sur lequel votre application React écoute
+    credentials: true,
 }));
 
 // monte l'API sur /api

@@ -6,7 +6,7 @@ import Research from '../pages/Research';
 const Banniere = (props) => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
     return (
-        <header className={(isAuth ? "banniere" : "banniereFormulaire")}>
+        <header className={(isAuth ? "banniereMain banniere main" : "banniereFormulaire banniere main")}>
             {/* Les images importées depuis la balise IMG son accessibles dans "public" */}
 
             < h1 > Chat&Tweet</h1 >

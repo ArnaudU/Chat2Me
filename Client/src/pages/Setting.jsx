@@ -33,7 +33,7 @@ const Setting = () => {
     };
 
     return (
-        <div className='reglageBody'>
+        <div className='reglageBody main'>
             <h1>Réglages</h1>
             <form onSubmit={handlePasswordSubmit}>
                 <h2>Changer le mot de passe</h2>

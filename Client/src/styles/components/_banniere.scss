@@ -1,10 +1,4 @@
-.banniereFormulaire {
-  display: flex;
-  align-items: center;
-  border-bottom: 10px solid $color_1;
-  padding-left: 150px;
-
-
+.banniere {
   h1 {
     @include verticalCenter;
     color: $color_1;
@@ -12,25 +6,21 @@
     margin: 5px auto;
     padding: 5px 0;
   }
+
+  border-bottom: 7px solid $color_1;
+}
+
+.banniereFormulaire {
+  display: flex;
+  align-items: center;
 
   button {
     margin: 10px;
   }
 }
 
-.banniere {
+.banniereMain {
   display: fixed;
-  border-bottom: 10px solid $color_1;
-  padding-left: 150px;
-
-
-  h1 {
-    @include verticalCenter;
-    color: $color_1;
-    font-size: 80px;
-    margin: 5px auto;
-    padding: 5px 0;
-  }
 
   form {
     @include verticalCenter;

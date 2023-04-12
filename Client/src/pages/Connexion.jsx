@@ -1,15 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
+import api from '../Api';
 import Auth from '../context/AuthContext';
-import { login } from '../services/AuthApi';
+import Cookies from 'js-cookie';
 
-function FormulaireConnexion({ history }) {
+function FormulaireConnexion() {
     const [user, setUser] = useState({
         username: "",
         pwd: ""
     })
     const [errorAuth, setErrorAuth] = useState("");
-    const { isAuth, setIsAuth } = useContext(Auth);
+    const { setIsAuth } = useContext(Auth);
 
     function handleChange({ currentTarget }) {
         const { name, value } = currentTarget;
@@ -17,22 +17,22 @@ function FormulaireConnexion({ history }) {
         setUser({ ...user, [name]: value })
     }
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
-        try {
-            const response = await axios.get("http://localhost:8000/api/login", { user })
-            console.log(response.data)
-            setIsAuth(response);
-            history.replace('/profil');
-        }
-        catch (errorAuth) {
-            setErrorAuth(errorAuth.message)
-        }
+        api.post('/login', user)
+            .then(response => {
+                console.log(response)
+                Cookies.set('userId', response.data.user, { expires: 7 })
+                setIsAuth(true)
+            })
+            .catch((errorAuth) => {
+                setErrorAuth(errorAuth.response.data.error)
+            })
     }
 
     return (
         <div className='formulaire'>
-            <form onSubmit={handleSubmit}>
+            <form >
                 <h1>Connexion</h1>
                 <div className="form-group">
                     <label htmlFor="login">
@@ -49,13 +49,13 @@ function FormulaireConnexion({ history }) {
                         Mot de passe
                     </label>
                     <input
-                        type="pwd"
+                        type="password"
                         name="pwd"
                         onChange={handleChange}
                         placeholder="Mot de passe" />
                 </div>
                 <ul>
-                    <button type="submit" >Connecter</button>
+                    <button type="submit" onClick={handleSubmit}>Connecter</button>
                     <button type="reset" id="btnAnnuler">Annuler</button>
                 </ul>
                 <h1 id="warning">{errorAuth}</h1>

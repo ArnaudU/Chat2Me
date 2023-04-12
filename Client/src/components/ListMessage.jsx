@@ -1,30 +1,36 @@
 import Message from './Message';
-
+import api from '../Api';
+import { useEffect, useState } from 'react';
 //variable pour récuperer une liste de message
 
 const ListMessage = () => {
-    const posts = [
-        {
-            id: 1,
-            username: "Moi",
-            content: "Bienvenue sur World Bird!",
-            fav: 1,
-            retweet: 5,
-            date: new Date(),
-        }
-    ];
+    const [posts, setPosts] = useState(null)
+
+    useEffect(() => {
+        api.get('/message/recent')
+            .then(response => {
+                setPosts(response.data)
+            })
+            .catch(error => {
+                setPosts(error)
+            })
+    }, []);
+    if (posts === null) {
+        return < div ></div>;
+    }
     return (
-        <div>
+        < div >
             {posts.map((post) =>
-                <Message
-                    key={post}
+                < Message
+                    key={post._id}
                     username={post.username}
                     content={post.content}
-                    fav={post.fav}
-                    rt={post.retweet}
+                    fav={post.like.length}
+                    rt={post.retweet.length}
                 />
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 };
 

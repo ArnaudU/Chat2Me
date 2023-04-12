@@ -1,11 +1,11 @@
 .formulaire {
-    margin-top: 15vh;
+    margin-top: 7vh;
     display: flex;
 
     //Le mot enregistrement ou inscription
     h1 {
         @include verticalCenter;
-        font-size: 50px;
+        font-size: 40px;
         color: $color_1;
         padding-top: 5%;
         padding-bottom: 20px;
@@ -18,8 +18,7 @@
         border-radius: 20px;
         width: 450px;
         margin: 0 auto;
-        font-size: 40px;
-
+        font-size: 30px;
     }
 
     .red {
@@ -35,11 +34,11 @@
     }
 
     .form-group {
-
         label {
             display: flex;
             flex-direction: column;
             font-size: 20px;
+            padding-bottom: 1vh;
         }
 
         input {
@@ -62,7 +61,7 @@
         @include verticalCenter;
 
         button {
-            width: 40%;
+            width: 35%;
             margin: 15px;
         }
     }

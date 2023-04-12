@@ -14,6 +14,13 @@ const followSchema = new Schema({
         ref: 'User',
         required: true
     }
-});
+},
+    {
+        _id: 'auto'
+    },
+    {
+        timestamps: true,
+    }
+);
 
 module.exports = mongoose.model('Follow', followSchema);

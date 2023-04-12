@@ -49,7 +49,7 @@ function findUser(res, who) {
 
 
 function getMyInfo(req, res) {
-    if (req.session.loggedIn) {
+    if (req.session) {
         findUser(res, req.session.user)
     }
     else {
