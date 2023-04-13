@@ -26,6 +26,10 @@ const postSchema = new Schema({
     response: {
         type: Array,
         default: []
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 },
     {

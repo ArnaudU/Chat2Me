@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from './context/AuthContext';
+import { hasAuth } from './services/AuthApi.js';
 import SideBar from './components/SideBar';
 import Connexion from './pages/Connexion';
 import Home from './pages/Home';
@@ -9,23 +10,9 @@ import Profil from "./pages/Profil";
 import Setting from './pages/Setting';
 import Tweet from './pages/Tweet';
 import Banniere from './components/Banniere';
-import api from './Api'
-import { useLocation } from 'react-router-dom';
+
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    api.get('/profile')
-      .then((response) => {
-        setIsAuth(response)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [location.pathname])
-
-
+  const [isAuth, setIsAuth] = useState(hasAuth());
   return (
     <Auth.Provider value={{ isAuth, setIsAuth }}>
       <Banniere />

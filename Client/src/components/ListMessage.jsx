@@ -18,6 +18,7 @@ const ListMessage = () => {
     if (posts === null) {
         return < div ></div>;
     }
+    console.log(posts)
     return (
         < div >
             {posts.map((post) =>
@@ -25,8 +26,10 @@ const ListMessage = () => {
                     key={post._id}
                     username={post.username}
                     content={post.content}
-                    fav={post.like.length}
-                    rt={post.retweet.length}
+                    nbLike={post.like.length}
+                    nbRetweet={post.retweet.length}
+                    nbResponse={post.response.length}
+                    created={post.createdAt}
                 />
             )
             }

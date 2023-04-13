@@ -5,7 +5,7 @@ const Follow = require('../schema/followSchema')
 const User = require("../schema/userSchema")
 
 async function setFollow(req, res) {
-    if (!req.session.user) {
+    if (!req.session) {
         return authError(res);
     }
     try {
@@ -46,7 +46,7 @@ async function setFollow(req, res) {
 }
 
 async function getFollowList(req, res, which) {
-    if (!req.session.user) {
+    if (!req.session) {
         return authError(res);
     }
     try {

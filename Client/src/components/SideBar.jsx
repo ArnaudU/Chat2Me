@@ -1,15 +1,25 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import home from '../assets/img/home.png';
+import home from '../assets/img/home.svg';
 import loupe from '../assets/img/loupe.svg';
 import engrenage from '../assets/img/engrenage.svg';
 import profil from '../assets/img/profil.svg';
 import deconnexion from '../assets/img/deconnexion.svg';
 import plus from '../assets/img/plus.svg';
 import AuthContext from '../context/AuthContext';
+import { logout } from '../services/AuthApi'
 
 const Sidebar = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
+    async function handleLogout() {
+        try {
+            await logout()
+            window.location.reload()
+        }
+        catch {
+
+        }
+    }
     return (
         isAuth && <>
             <aside className="sidebar">
@@ -33,7 +43,7 @@ const Sidebar = () => {
                         <img src={plus} alt="" />
                     </NavLink>
                     <NavLink to="" className="grow">
-                        <img id="deconnexion" src={deconnexion} alt="Deconnecter" />
+                        <img id="deconnexion" src={deconnexion} alt="Deconnecter" onClick={handleLogout} />
                     </NavLink>
 
                 </ul>

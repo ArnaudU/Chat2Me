@@ -5,9 +5,9 @@
     //Le mot enregistrement ou inscription
     h1 {
         @include verticalCenter;
-        font-size: 40px;
+        font-size: 35px;
         color: $color_1;
-        padding-top: 5%;
+        padding-top: 1vh;
         padding-bottom: 20px;
     }
 
@@ -38,7 +38,7 @@
             display: flex;
             flex-direction: column;
             font-size: 20px;
-            padding-bottom: 1vh;
+            padding-bottom: 5px;
         }
 
         input {
@@ -61,7 +61,7 @@
         @include verticalCenter;
 
         button {
-            width: 35%;
+            width: 20vh;
             margin: 15px;
         }
     }

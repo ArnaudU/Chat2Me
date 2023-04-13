@@ -5,7 +5,7 @@ const serveurError = require("../error/ServeurErreur")
 const userError = require("../error/UserErreur")
 
 function deleteUser(req, res) {
-    if (req.session.loggedIn) {
+    if (req.session) {
         User.deleteOne({ username: req.session.user })
             .then((data) => {
                 if (data.deletedCount != 1) {
@@ -50,24 +50,20 @@ function findUser(res, who) {
 
 function getMyInfo(req, res) {
     if (req.session) {
-        findUser(res, req.session.user)
+        return findUser(res, req.session.user)
     }
-    else {
-        authError(res);
-    }
+    authError(res);
 }
 
 function getInfo(req, res) {
-    if (req.session.loggedIn) {
-        findUser(res, req.params.id)
+    if (req.session) {
+        return findUser(res, req.params.id)
     }
-    else {
-        authError(res);
-    }
+    authError(res);
 }
 
 function setDescription(req, res) {
-    if (req.session.loggedIn) {
+    if (req.session) {
         User.findOneAndUpdate(
             { username: req.params.id },
             { description: req.body.description }

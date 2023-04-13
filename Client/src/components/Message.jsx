@@ -6,34 +6,36 @@ import retweet_icon from '../assets/img/retweet.svg'
 import profil_icon from '../assets/img/profil.svg'
 
 const Message = (props) => {
-    const [date, setDate] = useState(new Date());
-    const [rt, setRt] = useState(props.rt)
+    const [nbRetweet, setRt] = useState(props.nbRetweet)
+    const [date] = useState(props.created)
+    const [nbResponse] = useState(props.nbResponse)
     const [aRt, setaRt] = useState(false)
-    const [fav, setFav] = useState(props.fav)
-    const [aFav, setaFav] = useState(false)
-    const Reponse = useState({});
+    const [nbLike] = useState(props.nbLike)
+    const [aFav] = useState(false)
+    const formattedDate = new Date(date).toLocaleString('fr-FR', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+    });
 
     function favOnClick(event) {
         event.preventDefault();
-        if (!aFav) {
-            setFav(fav + 1)
-            setaFav(true)
-        }
-        else {
-            setFav(fav - 1)
-            setaFav(false)
-        }
+
     }
+
 
     function rtOnClick(event) {
         event.preventDefault();
         if (!aRt) {
-            setRt(rt + 1)
+            setRt(nbRetweet + 1)
             setaRt(true)
 
         }
         else {
-            setRt(rt - 1)
+            setRt(nbRetweet - 1)
             setaRt(false)
         }
     }
@@ -53,23 +55,21 @@ const Message = (props) => {
                 <ul>
                     <li>
                         <img id="msg" src={msg_icon} alt="Commentaire" />
+                        <span>{nbResponse}</span>
                     </li>
                     <li>
-                        <img className={aRt ? "rtcolor" : ""} id='retweet' src={retweet_icon} alt="Rt" onClick={rtOnClick} />
-                        <span>{rt}</span>
+                        <img className={aRt ? "rtcolor" : ""} id='nbRetweet' src={retweet_icon} alt="Rt" onClick={rtOnClick} />
+                        <span>{nbRetweet}</span>
                     </li>
                     <li >
                         <img className={aFav ? "favcolor" : ""} id='fav' src={coeur_icon} alt="Like" onClick={favOnClick} />
-                        <span >{fav}</span>
+                        <span >{nbLike}</span>
 
                     </li>
 
                     <li>
                         <div className='date'>
-                            <span>Le</span>
-                            <span>{date.toLocaleDateString()}</span>
-
-                            <span>{date.toLocaleTimeString()}</span>
+                            <span>{formattedDate}</span>
                         </div>
                     </li>
                 </ul>

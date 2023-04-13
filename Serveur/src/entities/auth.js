@@ -1,16 +1,13 @@
 const User = require("../schema/userSchema")
 const bcrypt = require('bcrypt');
-const authError = require("../error/AuthErreur")
-const pageError = require("../error/PageErreur")
 const serveurError = require("../error/ServeurErreur")
-const userError = require("../error/UserErreur")
-
+const jwt = require('jsonwebtoken');
 const LEN_HASH = 10
 const LENGTH_MIN_USERNAME = 4;
 const LENGTH_MIN_PASSWORD = 6;
 
 function hasSpecialCharacters(str) {
-    const regex = /[!@#$%^&*()_+-=[\]{};':"\\|,.<>?]/g;
+    const regex = /[!@#$%^&*()_+-=[\]{};':"\\|,.<>?]/;
     return regex.test(str);
 }
 
@@ -62,7 +59,12 @@ function login(req, res) {
                 req.session.loggedIn = true;// marquer l'utilisateur comme connecté en utilisant la session
                 req.session.user = user.username;
                 req.session.user_id = user._id;
-                res.status(200).json({ message: 'Connecter avec succes.' });
+                // Générer un token avec JWT
+                const token = jwt.sign(JSON.stringify(req.session), 'JK192DFKDFD582FDF41');
+
+                // Stocker le token dans la session de l'utilisateur
+                req.session.token = token;
+                res.status(200).json({ message: 'Connecter avec succes.', session: req.session });
             }
             else {
                 res.status(401).json({ error: "Utilisateur ou mot de passe invalide" });
@@ -75,9 +77,7 @@ function login(req, res) {
 }
 
 function logout(req, res) {
-    console.log(req)
     req.session.destroy(); // supprimer la session pour déconnecter l'utilisateur
-
     res.status(200).json({ message: 'Vous etes bien déconnecter!' }).end();
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { logout } from '../services/AuthApi'
 
 const Setting = () => {
     // états pour les champs de formulaire
@@ -27,10 +28,15 @@ const Setting = () => {
     };
 
     // fonction pour gérer la déconnexion de l'utilisateur
-    const handleDeconnexion = () => {
-        // envoyer la demande de déconnexion à l'API
-        console.log('Se déconnecter');
-    };
+    async function handleLogout() {
+        try {
+            await logout()
+            window.location.reload()
+        }
+        catch {
+
+        }
+    }
 
     return (
         <div className='reglageBody main'>
@@ -71,7 +77,7 @@ const Setting = () => {
                 </div>
                 <button type='submit'>Modifier</button>
             </form >
-            <button onClick={handleDeconnexion}>Se déconnecter</button>
+            <button onClick={handleLogout}>Se déconnecter</button>
         </div >
     );
 };

@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
-import api from '../Api';
 import Auth from '../context/AuthContext';
-import Cookies from 'js-cookie';
+import { login } from '../services/AuthApi';
 
 function FormulaireConnexion() {
     const [user, setUser] = useState({
@@ -17,17 +16,14 @@ function FormulaireConnexion() {
         setUser({ ...user, [name]: value })
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
-        api.post('/login', user)
-            .then(response => {
-                console.log(response)
-                Cookies.set('userId', response.data.user, { expires: 7 })
-                setIsAuth(true)
-            })
-            .catch((errorAuth) => {
-                setErrorAuth(errorAuth.response.data.error)
-            })
+        try {
+            const response = await login(user);
+            setIsAuth(response)
+        } catch ({ response }) {
+            setErrorAuth(response.data.error)
+        }
     }
 
     return (

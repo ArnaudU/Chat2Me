@@ -35,6 +35,10 @@ const userSchema = new Schema(
             type: String,
             max: 100,
             default: "Pas de bio"
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
         }
     },
     //Date de création de l'utilisateur

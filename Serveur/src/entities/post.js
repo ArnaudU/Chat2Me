@@ -8,23 +8,24 @@ const userError = require("../error/UserErreur")
 
 async function createMessage(req, res) {
     try {
-        if (req.session.user) {
-            let user = await User.findOne({ username: req.session.user })
-            if (user) {
-                let newComment = new Post({
-                    content: req.body.content,
-                    user: user.id,
-                    username: user.username
-                });
-                await newComment.save()
-                res.status(200).send("Votre post est bien ajouté!")
-                return
-            }
-            res.status(401).json({ error: "Le cookie du compte n'est pas valide" })
+        if (!req.session) {
+            authError(res)
+        }
+        let user = await User.findOne({ username: req.session.user })
+        if (user) {
+            let newComment = new Post({
+                content: req.body.content,
+                user: user.id,
+                username: user.username
+            });
+            await newComment.save()
+            res.status(200).send("Votre post est bien ajouté!")
             return
         }
-
+        res.status(401).json({ error: "Le cookie du compte n'est pas valide" })
+        return
     }
+
     catch (err) {
         console.log(err)
         serveurError(res)
@@ -79,7 +80,7 @@ async function setOrDelMessage(req, res) {
 
 
 async function getMessagesFromId(req, res) {
-    if (!req.session.user) {
+    if (!req.session) {
         return authError(res)
     }
     try {
@@ -95,7 +96,7 @@ async function getMessagesFromId(req, res) {
 }
 
 async function getMessagesFromAllFollower(req, res) {
-    if (!req.session.user) {
+    if (!req.session) {
         return authError(res)
     }
     try {
@@ -112,13 +113,13 @@ async function getMessagesFromAllFollower(req, res) {
 }
 
 async function getRecentPost(req, res) {
-    // if (!req.session.user) {
-    //     return authError(res)
-    // }
+    if (!req.session) {
+        return authError(res)
+    }
     const n = req.query.n || 10; // par défaut, on récupère les 10 posts les plus courants
     try {
         const posts = await Post.find()
-            .sort({ createdAt: -1 }) // trier par date de création décroissante
+            .sort({ createdAt: 1 }) // trier par date de création décroissante
             .limit(n); // limiter à 10 résultats
         res.status(200).json(posts).end();
     } catch (err) {
@@ -129,7 +130,7 @@ async function getRecentPost(req, res) {
 
 async function updateLikeOrRt(req, res, array) {
     //req.params.msgid et req.session.user
-    if (!req.session.user) {
+    if (!req.session) {
         return authError(res)
     }
     try {
