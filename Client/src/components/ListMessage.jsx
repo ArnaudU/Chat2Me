@@ -3,27 +3,14 @@ import api from '../Api';
 import { useEffect, useState } from 'react';
 //variable pour récuperer une liste de message
 
-const ListMessage = () => {
-    const [posts, setPosts] = useState(null)
-
-    useEffect(() => {
-        api.get('/message/recent')
-            .then(response => {
-                setPosts(response.data)
-            })
-            .catch(error => {
-                setPosts(error)
-            })
-    }, []);
-    if (posts === null) {
-        return < div ></div>;
-    }
-    console.log(posts)
+const ListMessage = (props) => {
+    const [posts, setPosts] = useState(props.posts)
     return (
         < div >
             {posts.map((post) =>
                 < Message
                     key={post._id}
+                    id={post._id}
                     username={post.username}
                     content={post.content}
                     nbLike={post.like.length}

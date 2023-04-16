@@ -11,13 +11,13 @@ router.post("/logout", auth.logout)//OK //permet de se deconnecter
 router.get("/profile", user.getMyInfo);//OK
 router.get("/user/:id", user.getInfo)//OK// permet d'avoir l'information sur l'utilisateur
 router.delete("/del", user.deleteUser)//OK
-router.put("/user/:id/description", user.setDescription)//OK
+router.post("/user/:id/description", user.setDescription)//OK
 
 router.post("/message/", post.createMessage)//OK//poster un post
 router.post("/message/post/:msgid/", post.setOrDelMessage)//OK//modifier un post
 router.delete("/message/delete/:msgid/", post.setOrDelMessage)//OK//supprimer un post
-router.get("/message/user/:id/", post.getMessagesFromId)//permet d’obtenir l’affichage de tous les messages d’un ami followid de user dont l’id est userid
-router.get("/message/follow/:id/all", post.getMessagesFromAllFollower)//permet d’obtenir l’affichage de tous les messages de tous les amis de user dont l’id est userid
+router.get("/message/user/:id/", post.getMessagesFromId)//permet d’obtenir l’affichage de tous les messages d’un id de user dont l’id est ":id"
+router.get("/message/follow/:id/all", post.getMessagesFromAllFollower)//permet d’obtenir l’affichage de tous les amis messages de tous les amis de user dont l’id est userid
 router.get("/message/recent", post.getRecentPost)//permet d’obtenir les stats sur les messages de l’user userid.
 router.post("/message/:msgid/like", post.likeMessage)//OK
 router.post("/message/:msgid/retweet", post.retweetMessage)//OK

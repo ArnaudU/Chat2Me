@@ -37,14 +37,12 @@ export function logout() {
     )
 }
 
+
+
 function tokenIsValid(token) {
     const { cookie: cookie } = jwtDecode(token);
     const cookieDate = new Date(cookie.expires);
     // Créer une instance de Date représentant la date courante
     const currentDate = new Date();
-    if (currentDate < cookieDate) {
-        return true;
-    }
-
-    return false;
+    return (currentDate < cookieDate)
 }

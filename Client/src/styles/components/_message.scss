@@ -1,24 +1,47 @@
 .message {
-
-
     section {
         .contains {
-            .usernameId {
+            .top_container {
+
+                .setMessage {
+                    img {
+                        margin: 10px;
+                        height: 30px;
+                        width: 30px;
+                    }
+
+                    padding-right: 10px;
+                }
+
+                padding-top: 2vh;
                 display: flex;
                 align-items: center;
-                padding-left: 10px;
+                justify-content: space-between;
 
                 h2 {
                     color: $color_4;
                 }
+
+                img {
+                    height: 40px;
+                    width: 40px;
+                }
+
+                img#profil {
+                    margin-left: 2vh;
+                }
+
+                img#delete {
+                    margin-right: 20px
+                }
             }
 
             p {
-
                 font-size: 25px;
-                padding-left: 30px;
+                padding-left: 5vh;
                 padding-right: 30px;
                 padding-top: 15px;
+                padding-bottom: 20px;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
@@ -27,8 +50,10 @@
         }
 
         ul {
+
+            border-top: 1px solid;
             padding: 12px;
-            border-bottom: 1px solid $color_1;
+            border-bottom: 8px solid $color_1;
             display: flex;
             padding-left: 19vh;
             padding-right: 5vh;
@@ -82,5 +107,7 @@
             background-color: $retweet_color;
             border-radius: 20px;
         }
+
+
     }
 }

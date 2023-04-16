@@ -32,8 +32,8 @@ async function createMessage(req, res) {
     }
 }
 
-async function getPost(msgid) {
-    return await Post.findOne({ _id: msgid });
+function getPost(msgid) {
+    return Post.findOne({ _id: msgid });
 }
 
 async function setOrDelMessage(req, res) {
@@ -41,7 +41,7 @@ async function setOrDelMessage(req, res) {
         return authError(res)
     }
     try {
-        let post = getPost(req.params.msgid)
+        let post = await getPost(req.params.msgid)
         if (!post) {
             pageError(res)
         }
@@ -57,14 +57,17 @@ async function setOrDelMessage(req, res) {
                 res.status(200).send("Message modifier!")
                 return
             }
-            if (req.method === 'DELETE') {
-                await Post.deleteOne(
-                    {
-                        _id: req.params.msgid,
-                        user: req.session.user_id
-                    },
-                )
-                res.status(200).send("Message supprimer!")
+
+            else {
+                if (req.method === 'DELETE') {
+                    await Post.deleteOne(
+                        {
+                            _id: req.params.msgid,
+                            user: req.session.user_id
+                        },
+                    )
+                    res.status(200).send("Message supprimer!")
+                }
             }
         }
         else {
@@ -73,8 +76,7 @@ async function setOrDelMessage(req, res) {
     }
 
     catch (err) {
-        console.log(err)
-        serveurError(res)
+        //console.log(err)
     }
 }
 
@@ -85,8 +87,7 @@ async function getMessagesFromId(req, res) {
     }
     try {
         let user = await User.findOne({ username: req.params.id }).select('_id').exec()
-        console.log(user)
-        let posts = await Post.find({ user: user }).select('-_id -__v').exec()
+        let posts = await Post.find({ user: user }).select('-__v').exec()
         res.status(200).json(posts)
     }
     catch (err) {
@@ -119,7 +120,7 @@ async function getRecentPost(req, res) {
     const n = req.query.n || 10; // par défaut, on récupère les 10 posts les plus courants
     try {
         const posts = await Post.find()
-            .sort({ createdAt: 1 }) // trier par date de création décroissante
+            .sort({ createdAt: -1 }) // trier par date de création décroissante
             .limit(n); // limiter à 10 résultats
         res.status(200).json(posts).end();
     } catch (err) {

@@ -1,0 +1,3 @@
+.un boutton delete qui fait un appel et qui supprime le message
+.lorsque l'on appuie sur un message, il faut que ce message soit detaille(c'est a dire qu'on a le message avec les réponses)
+.afficher la liste d'amis lorsque l'on appuie sur le profil followp

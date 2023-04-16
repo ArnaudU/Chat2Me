@@ -37,8 +37,9 @@ function findUser(res, who) {
                 {
                     "name": data.name,
                     "username": data.username,
-                    "followers": data.followers.length,
-                    "following": data.following.length
+                    "followers": data.followers,
+                    "following": data.following,
+                    "bio": data.description
                 })
         })
         .catch((err) => {
@@ -63,13 +64,17 @@ function getInfo(req, res) {
 }
 
 function setDescription(req, res) {
+    console.log(req.body)
     if (req.session) {
         User.findOneAndUpdate(
             { username: req.params.id },
             { description: req.body.description }
         )
-            .then(() => {
-                console.log("Ok")
+            .then((user) => {
+                console.log(user)
+                if (!user) {
+                    userError()
+                }
                 res.status(200).send("Bio modifier!")
             })
             .catch((err) => {

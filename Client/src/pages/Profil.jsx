@@ -1,37 +1,81 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ListMessage from "../components/ListMessage"
-
+import { getUser, getUserProfilInfo } from '../services/UserApi';
+import Chargement from './Chargement';
+import PageNotFound from './PageNotFound'
+import { getPostsFromId } from '../services/PostApi';
 const Profil = (props) => {
+
     const { id } = useParams();
-    const [nbFollower, setFollower] = useState(props.nbFollower)
-    const [nbFollowed, setFollowed] = useState(props.nbFollowed)
-    const [aFollow, setAFollow] = useState(props.aFollow)
+    let [followers, setFollowers] = useState([])
+    let [following, setFollowing] = useState([])
+    let [userFound, setUserFound] = useState(true)
+    let [bio, setBio] = useState()
+    let [posts, setPosts] = useState()
+    const [aFollow] = useState()
+
+
+    useEffect(() => {
+        getUserProfilInfo(id)
+            .then(info => {
+                if (info) {
+                    setFollowers(info.followers)
+                    setFollowing(info.following)
+                    setBio(info.bio)
+                    setUserFound(true)
+                }
+                else {
+                    setUserFound(false)
+                }
+            })
+            .catch(() => {
+                setUserFound(false)
+            })
+    }, [id]);
+
+
+    useEffect(() => {
+        getPostsFromId(id)
+            .then((response) => {
+                setPosts(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+                setUserFound(false)
+            })
+    }, [id])
+    if (!userFound) {
+        return (
+            <PageNotFound />
+        );
+    }
+
+    if (!followers || !following || posts === null) {
+        return (
+            <Chargement />
+        )
+    }
 
     function followOnClick(event) {
         event.preventDefault()
-        if (aFollow) {
-            setFollower(nbFollower - 1)
-        }
-        else {
-            setFollower(nbFollower + 1)
-        }
-        setAFollow(!aFollow)
-    }
 
+    }
     return (
         <div className='profilBody main'>
             <form >
-                <button onClick={followOnClick}>{aFollow ? "Retirer" : "Suivre"}</button>
-                <p id='identifiant'>@{id}</p>
+                {
+                    (id !== getUser().user) && <button onClick={followOnClick}>{aFollow ? "Retirer" : "Suivre"}</button>
+
+                }<h1 id='identifiant'>@{id}</h1>
                 <p>{props.name}</p>
-                <p id='bio'>{props.bio}</p>
-                <p id='nbFollowed'>Nombre d'abonnés : {nbFollower}</p>
-                <p id='nbFollower'>Nombre d'abonnements : {nbFollowed}</p>
+                <h2 id='bio'>{bio}</h2>
+                <p id='nbFollowed'>Nombre d'abonnés : {followers.length}</p>
+                <p id='nbFollower'>Nombre d'abonnements : {following.length}</p>
 
             </form>
-            <ListMessage />
-        </div>
+            {posts && <ListMessage posts={posts} />}
+        </div >
     );
 }
 

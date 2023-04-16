@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import home from '../assets/img/home.svg';
 import loupe from '../assets/img/loupe.svg';
 import engrenage from '../assets/img/engrenage.svg';
 import profil from '../assets/img/profil.svg';
-import deconnexion from '../assets/img/deconnexion.svg';
+import deconnexion from '../assets/img/cross.svg';
 import plus from '../assets/img/plus.svg';
 import AuthContext from '../context/AuthContext';
+import { getUser } from '../services/UserApi'
 import { logout } from '../services/AuthApi'
 
 const Sidebar = () => {
     const { isAuth, setIsAuth } = useContext(AuthContext);
+    const userId = getUser().user
     async function handleLogout() {
         try {
             await logout()
@@ -30,7 +32,7 @@ const Sidebar = () => {
                     <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>
                         <img id='home' src={home} alt="Accueil" />
                     </NavLink>
-                    <NavLink to="/user/me" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")} >
+                    <NavLink to={`/user/${userId}`} className={(nav) => (nav.isActive ? "nav-active grow" : "grow")} >
                         <img src={profil} alt="Profil" />
                     </NavLink>
                     <NavLink to="/recherche" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { logout } from '../services/AuthApi'
+import { changeBio, getUsername } from '../services/UserApi';
 
 const Setting = () => {
     // états pour les champs de formulaire
@@ -19,13 +20,6 @@ const Setting = () => {
     };
 
     // fonction pour gérer la soumission du formulaire de changement de bio
-    const handleBioSubmit = (e) => {
-        e.preventDefault();
-        // envoyer la demande de modification de bio à l'API
-        console.log(`Changer la bio à ${bio}`);
-        // réinitialiser le champ
-        setBio('');
-    };
 
     // fonction pour gérer la déconnexion de l'utilisateur
     async function handleLogout() {
@@ -36,6 +30,15 @@ const Setting = () => {
         catch {
 
         }
+    }
+    // fonction pour gérer la soumission du formulaire de changement de bio
+    function handleBioSubmit() {
+        changeBio(bio)
+            .then((response) => {
+                if (response) {
+                    window.location.replace(`user/${getUsername()}`);
+                }
+            })
     }
 
     return (
@@ -63,7 +66,7 @@ const Setting = () => {
                 </div>
                 <button type='submit'>Modifier</button>
             </form>
-            <form onSubmit={handleBioSubmit}>
+            <form>
                 <h2>Changer la bio</h2>
                 <div>
                     <label htmlFor='bio'>Nouvelle bio :</label>
@@ -75,7 +78,7 @@ const Setting = () => {
                         onChange={(e) => setBio(e.target.value)}
                     />
                 </div>
-                <button type='submit'>Modifier</button>
+                <button onClick={handleBioSubmit} >Modifier</button>
             </form >
             <button onClick={handleLogout}>Se déconnecter</button>
         </div >

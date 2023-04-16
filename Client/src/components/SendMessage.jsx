@@ -3,14 +3,19 @@ import { createMessage } from '../services/PostApi';
 
 const SendMessage = () => {
     const [message, setMessage] = useState('');
+    const [error, setError] = useState("")
+
     async function handleSubmit(event) {
         event.preventDefault();
-        try {
-            const response = await createMessage({ content: message })
-            console.log(response);
-        } catch (error) {
-            console.error(error);
-        }
+        createMessage({ content: message })
+            .then((response) => {
+                if (response) {
+                    window.location.replace("/");
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
     return (
         <div className='sendmessage'>
