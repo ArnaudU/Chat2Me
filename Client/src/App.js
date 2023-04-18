@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from './context/AuthContext';
 import { hasAuth } from './services/AuthApi.js';
@@ -13,6 +13,9 @@ import Banniere from './components/Banniere';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(hasAuth());
+  useEffect(() => {
+    setIsAuth(hasAuth)
+  }, [])
   return (
     <Auth.Provider value={{ isAuth, setIsAuth }}>
       <Banniere />

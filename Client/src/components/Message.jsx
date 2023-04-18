@@ -5,18 +5,17 @@ import del_icon from '../assets/img/poubelle.svg'
 import set_msg_icon from '../assets/img/setMessage.svg'
 import retweet_icon from '../assets/img/retweet.svg'
 import profil_icon from '../assets/img/profil.svg'
-import { getUser } from '../services/UserApi'
-import { deleteMessage } from '../services/PostApi';
+import { getUser, getUsername } from '../services/UserApi'
+import { deleteMessage, getMessage, likeMessage, retweetMessage } from '../services/PostApi';
 
 const Message = (props) => {
-    const [nbRetweet] = useState(props.nbRetweet)
+    const [nbRetweet, setNbRetweet] = useState(props.nbRetweet)
     const [date] = useState(props.created)
-    const [nbResponse] = useState(props.nbResponse)
-    const [aRt] = useState(false)
-    const [nbLike] = useState(props.nbLike)
-    const [aFav] = useState(false)
+    const [nbResponse, setNbResponse] = useState(props.nbResponse)
+    const [aRt, setARt] = useState(props.aRt)
+    const [nbLike, setNbLike] = useState(props.nbLike)
+    const [aLike, setALike] = useState(props.aLike)
     const [userLogged, setUserLogged] = useState({});
-    const [showOptions, setShowOptions] = useState(false);
 
     useEffect(() => {
         const fetchedUser = getUser();
@@ -29,35 +28,51 @@ const Message = (props) => {
         year: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-        second: 'numeric',
     });
 
-    const handleButtonClick = () => {
-        console.log("la")
-        setShowOptions(!showOptions);
-    };
 
     const handleDeleteClick = () => {
         // Logique pour supprimer le message ici
-        deleteMessage(props.msg)
+        console.log(props.id)
+        deleteMessage(props.id)
+            .then((response) => {
+                if (response) {
+                    window.location.reload()
+                }
+
+            })
     };
 
-    const handleEditClick = () => {
-        // Logique pour modifier le message ici
-    };
+    function refreshMessage(response) {
+        if (response) {
+            getMessage(props.id)
+                .then((post) => {
+                    setNbLike(post.like.length);
+                    setALike(post.like.includes(getUsername()));
+                    setNbRetweet(post.retweet.length);
+                    setARt(post.retweet.includes(getUsername()));
+                    setNbResponse(post.response.length)
+                })
+                .catch((error) => console.log(error));
+        }
+    }
 
-    function handleFavClick(event) {
-        event.preventDefault();
-
+    function handleLikeClick(event) {
+        likeMessage(props.id)
+            .then((response) => {
+                refreshMessage(response)
+            })
     }
 
     function handleRtClick(event) {
-        event.preventDefault();
-
+        retweetMessage(props.id)
+            .then((response) => {
+                refreshMessage(response)
+            })
     }
 
-    function MessageBody() {
-        return (
+    return (
+        <div className='message'>
             <section>
                 <div className='contains'>
                     <div className="top_container">
@@ -72,28 +87,26 @@ const Message = (props) => {
                             ||
                             (<>
                                 <div>
-                                    <img id="delete" style={{ visibility: "hidden" }} />
-                                    <img id="delete" style={{ visibility: "hidden" }} />
+                                    <img src='' id="delete" style={{ visibility: "hidden" }} />
+                                    <img src='' id="delete" style={{ visibility: "hidden" }} />
                                 </div>
                             </>)
                         }
-
                     </div>
-
                     <p >{props.content}</p>
                 </div>
 
                 <ul>
                     <li>
-                        <img id="msg" src={msg_icon} alt="Commentaire" />
+                        <img id="message" src={msg_icon} alt="Commentaire" />
                         <span>{nbResponse}</span>
                     </li>
                     <li>
-                        <img className={aRt ? "rtcolor" : ""} id='nbRetweet' src={retweet_icon} alt="Rt" onClick={handleRtClick} />
+                        <img className={aRt ? "retweetcolor" : ""} id='nbRetweet' src={retweet_icon} alt="retweet" onClick={handleRtClick} />
                         <span>{nbRetweet}</span>
                     </li>
                     <li >
-                        <img className={aFav ? "favcolor" : ""} id='fav' src={coeur_icon} alt="Like" onClick={handleFavClick} />
+                        <img className={aLike ? "likecolor" : ""} id='nbLike' src={coeur_icon} alt="like" onClick={handleLikeClick} />
                         <span >{nbLike}</span>
 
                     </li>
@@ -106,16 +119,10 @@ const Message = (props) => {
                 </ul>
             </section >
 
-        );
-    }
-
-    return (
-        <div className='message'>
-            <ul>
-                <MessageBody />
-            </ul>
         </div>
-    );
-};
+
+    )
+}
+
 
 export default Message;

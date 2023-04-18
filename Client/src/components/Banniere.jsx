@@ -4,13 +4,14 @@ import AuthContext from '../context/AuthContext';
 import Research from '../pages/Research';
 
 const Banniere = (props) => {
-    const { isAuth, setIsAuth } = useContext(AuthContext);
+    const { isAuth } = useContext(AuthContext);
     return (
         <header className={(isAuth ? "banniereMain banniere main" : "banniereFormulaire banniere main")}>
-            {/* Les images importées depuis la balise IMG son accessibles dans "public" */}
 
+            <div className="errorMessage">
+
+            </div>
             < h1 > Chat&Tweet</h1 >
-
             {
                 (!isAuth &&
                     <>

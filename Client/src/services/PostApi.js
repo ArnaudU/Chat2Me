@@ -18,6 +18,15 @@ export function getPostsFromId(id) {
     )
 }
 
+export function getMessage(id) {
+    return (
+        Api.get(`/message/${id}/get`)
+            .then((response) => {
+                return response.data
+            })
+    )
+}
+
 export function getRecentPost() {
     return (
         Api.get('/message/recent')
@@ -30,6 +39,24 @@ export function getRecentPost() {
 export function deleteMessage(msgid) {
     return (
         Api.delete(`message/delete/${msgid}`)
+            .then((response) => {
+                return response
+            })
+    )
+}
+
+export function likeMessage(msgid) {
+    return (
+        Api.post(`message/${msgid}/like`)
+            .then((response) => {
+                return response
+            })
+    )
+}
+
+export function retweetMessage(msgid) {
+    return (
+        Api.post(`message/${msgid}/retweet`)
             .then((response) => {
                 return response
             })

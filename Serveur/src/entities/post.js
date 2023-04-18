@@ -87,7 +87,10 @@ async function getMessagesFromId(req, res) {
     }
     try {
         let user = await User.findOne({ username: req.params.id }).select('_id').exec()
-        let posts = await Post.find({ user: user }).select('-__v').exec()
+        let posts = await Post.find({ user: user })
+            .select('-__v')
+            .sort({ createdAt: -1 })
+            .exec()
         res.status(200).json(posts)
     }
     catch (err) {
@@ -131,7 +134,8 @@ async function getRecentPost(req, res) {
 
 async function updateLikeOrRt(req, res, array) {
     //req.params.msgid et req.session.user
-    if (!req.session) {
+    if (!req.session.loggedIn) {
+        req.session.destroy();
         return authError(res)
     }
     try {
@@ -142,7 +146,7 @@ async function updateLikeOrRt(req, res, array) {
             return pageError;
         }
         let action;
-        if (clicked) {
+        if (post[array].includes(req.session.user)) {
             // Si l'utilisateur a déjà liké le post, on le retire du tableau
             action = { $pull: { [array]: req.session.user } };
         } else {
@@ -174,8 +178,23 @@ function retweetMessage(req, res) {
     updateLikeOrRt(req, res, "retweet")
 }
 
+async function getMessage(req, res) {
+    if (!req.session) {
+        return authError(res)
+    }
+    try {
+        let post = await Post.findOne({ _id: req.params.msgid })
+        res.status(200).send(post)
+    }
+    catch (err) {
+        console.log(err);
+        serveurError(res)
+    }
+}
+
 module.exports = {
     createMessage: createMessage,
+    getMessage: getMessage,
     setOrDelMessage: setOrDelMessage,
     getMessagesFromId: getMessagesFromId,
     getMessagesFromAllFollower: getMessagesFromAllFollower,

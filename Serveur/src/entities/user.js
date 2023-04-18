@@ -26,6 +26,8 @@ function deleteUser(req, res) {
 
 }
 
+
+
 function findUser(res, who) {
     User.findOne({ username: who })
         .then((data) => {
@@ -64,14 +66,12 @@ function getInfo(req, res) {
 }
 
 function setDescription(req, res) {
-    console.log(req.body)
     if (req.session) {
         User.findOneAndUpdate(
             { username: req.params.id },
             { description: req.body.description }
         )
             .then((user) => {
-                console.log(user)
                 if (!user) {
                     userError()
                 }

@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Navigate } from "react-router-dom";
+
 const Research = () => {
-    const [searchTerm, setSearchTerm] = useState('');
+    const [userSearch, setSearchTerm] = useState('');
     const handleInputChange = event => {
         setSearchTerm(event.target.value);
     };
 
-    const handleSubmit = event => {
+    function handleSubmit(event) {
         event.preventDefault();
-        Navigate("/")
+        window.location.replace(`/user/${userSearch}`)
     };
 
     return (
 
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Recherche..." value={searchTerm} onChange={handleInputChange} />
-            <button>Rechercher</button>
+            <input type="text" placeholder="Recherche..." value={userSearch} onChange={handleInputChange} />
+            <button onClick={handleSubmit}>Rechercher</button>
         </form>
     );
 };

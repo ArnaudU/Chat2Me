@@ -76,19 +76,19 @@
 
             }
 
-            #fav:hover {
+            #nbLike:hover {
                 background-color: $fav_color;
                 border-radius: 20px;
                 opacity: 0.8;
             }
 
-            #retweet:hover {
+            #nbRetweet:hover {
                 background-color: $retweet_color;
                 border-radius: 20px;
                 opacity: 0.8;
             }
 
-            #msg:hover {
+            #message:hover {
                 background-color: $message_color;
                 opacity: 0.8;
             }
@@ -98,12 +98,12 @@
             }
         }
 
-        .favcolor {
+        .likecolor {
             background-color: $fav_color;
             border-radius: 20px;
         }
 
-        .rtcolor {
+        .retweetcolor {
             background-color: $retweet_color;
             border-radius: 20px;
         }

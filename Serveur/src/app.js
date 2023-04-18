@@ -15,8 +15,10 @@ app.use(session({
     saveUninitialized: true,
     // Cookie Options
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours}
-    }
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours}
+        httpOnly: true
+    },
+
 }));
 app.use(cors({
     origin: 'http://localhost:3000', // Remplacez 3000 par le port sur lequel votre application React écoute

@@ -5,12 +5,19 @@ import { getItem, addItem, removeItem } from './LocaleStorage';
 export function hasAuth() {
     const token = getItem('token');
     const result = token ? tokenIsValid(token) : false;
-
     if (false === result) {
         removeItem('token');
+        return false;
     }
 
-    return result;
+    return (api.get("/profil")
+        .then((res) => {
+            return res.status === 200
+        })
+        .catch((err) => {
+            removeItem('token');
+            return false
+        }))
 }
 
 export function login(user) {
@@ -40,7 +47,7 @@ export function logout() {
 
 
 function tokenIsValid(token) {
-    const { cookie: cookie } = jwtDecode(token);
+    const { cookie } = jwtDecode(token);
     const cookieDate = new Date(cookie.expires);
     // Créer une instance de Date représentant la date courante
     const currentDate = new Date();

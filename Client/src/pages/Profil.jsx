@@ -5,6 +5,7 @@ import { getUser, getUserProfilInfo } from '../services/UserApi';
 import Chargement from './Chargement';
 import PageNotFound from './PageNotFound'
 import { getPostsFromId } from '../services/PostApi';
+import { follow } from '../services/FollowApi';
 const Profil = (props) => {
 
     const { id } = useParams();
@@ -15,8 +16,20 @@ const Profil = (props) => {
     let [posts, setPosts] = useState()
     const [aFollow] = useState()
 
-
     useEffect(() => {
+        getPostsFromId(id)
+            .then((response) => {
+                setPosts(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+                setUserFound(false)
+            })
+    }, [id])
+
+    console.log(id)
+
+    function getUserInfo() {
         getUserProfilInfo(id)
             .then(info => {
                 if (info) {
@@ -32,19 +45,8 @@ const Profil = (props) => {
             .catch(() => {
                 setUserFound(false)
             })
-    }, [id]);
+    }
 
-
-    useEffect(() => {
-        getPostsFromId(id)
-            .then((response) => {
-                setPosts(response.data)
-            })
-            .catch(error => {
-                console.log(error)
-                setUserFound(false)
-            })
-    }, [id])
     if (!userFound) {
         return (
             <PageNotFound />
@@ -57,15 +59,23 @@ const Profil = (props) => {
         )
     }
 
-    function followOnClick(event) {
-        event.preventDefault()
-
+    function followOnClick() {
+        follow(id)
+            .then((res) => {
+                if (res) {
+                    getUserInfo()
+                }
+            })
     }
     return (
         <div className='profilBody main'>
             <form >
                 {
-                    (id !== getUser().user) && <button onClick={followOnClick}>{aFollow ? "Retirer" : "Suivre"}</button>
+                    (id !== getUser().user)
+                    &&
+                    <button onClick={followOnClick}>
+                        {aFollow ? "Retirer" : "Suivre"}
+                    </button>
 
                 }<h1 id='identifiant'>@{id}</h1>
                 <p>{props.name}</p>
