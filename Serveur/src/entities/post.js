@@ -4,7 +4,6 @@ const Follow = require('../schema/followSchema')
 const authError = require("../error/AuthErreur")
 const pageError = require("../error/PageErreur")
 const serveurError = require("../error/ServeurErreur")
-const userError = require("../error/UserErreur")
 
 async function createMessage(req, res) {
     try {
@@ -120,11 +119,9 @@ async function getRecentPost(req, res) {
     if (!req.session) {
         return authError(res)
     }
-    const n = req.query.n || 10; // par défaut, on récupère les 10 posts les plus courants
     try {
         const posts = await Post.find()
             .sort({ createdAt: -1 }) // trier par date de création décroissante
-            .limit(n); // limiter à 10 résultats
         res.status(200).json(posts).end();
     } catch (err) {
         console.error(err);

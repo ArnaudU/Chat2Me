@@ -6,10 +6,13 @@ import SideBar from './components/SideBar';
 import Connexion from './pages/Connexion';
 import Home from './pages/Home';
 import Inscription from './pages/Inscription';
-import Profil from "./pages/Profil";
+import PageProfil from "./pages/PageProfil";
 import Setting from './pages/Setting';
 import Tweet from './pages/Tweet';
 import Banniere from './components/Banniere';
+import ListProfil from './pages/ListProfil';
+import Error from './components/Error';
+import MessageID from './pages/MessageID';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(hasAuth());
@@ -18,6 +21,7 @@ const App = () => {
   }, [])
   return (
     <Auth.Provider value={{ isAuth, setIsAuth }}>
+      <Error />
       <Banniere />
       <SideBar />
       <Routes>
@@ -26,7 +30,10 @@ const App = () => {
         <Route path='/auth' element={!isAuth ? <Connexion /> : <Navigate replace to="/" />} />
         <Route path='/tweet' element={isAuth ? <Tweet /> : <Navigate replace to="/auth" />} />
         <Route path='/reglage' element={isAuth ? <Setting /> : <Navigate replace to="/auth" />} />
-        <Route path='/user/:id' element={isAuth ? <Profil /> : <Navigate replace to="/auth" />} />
+        <Route path='/user/:id' element={isAuth ? <PageProfil /> : <Navigate replace to="/auth" />} />
+        <Route path='/follower/:id' element={isAuth ? <ListProfil which={"follower"} /> : <Navigate replace to="/auth" />} />
+        <Route path='/following/:id' element={isAuth ? <ListProfil which={"following"} /> : <Navigate replace to="/auth" />} />
+        <Route path='/message/:msgid' element={isAuth ? <MessageID /> : <Navigate replace to="/auth" />} />
         <Route path='/*' element={<Navigate replace to="/auth" />} />
       </Routes >
 

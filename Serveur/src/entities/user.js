@@ -1,8 +1,8 @@
 const User = require("../schema/userSchema")
 const authError = require("../error/AuthErreur")
-const pageError = require("../error/PageErreur")
 const serveurError = require("../error/ServeurErreur")
 const userError = require("../error/UserErreur")
+const { getFollower, getFollowing, aFollow } = require("./follow")
 
 function deleteUser(req, res) {
     if (req.session) {
@@ -26,28 +26,30 @@ function deleteUser(req, res) {
 
 }
 
-
-
-function findUser(res, who) {
-    User.findOne({ username: who })
-        .then((data) => {
-            if (!data) {
-                res.status(404).send("Utilisateur non retrouvé ou utilisateur multiple")
-                return;
-            }
-            res.status(200).send(
-                {
-                    "name": data.name,
-                    "username": data.username,
-                    "followers": data.followers,
-                    "following": data.following,
-                    "bio": data.description
-                })
-        })
-        .catch((err) => {
-            console.error(err);
-            serveurError(res)
-        });
+async function findUser(res, who) {
+    try {
+        const data = await User.findOne({ username: who })
+        if (!data) {
+            res.status(404).send("Utilisateur non retrouvé ou utilisateur multiple")
+            return;
+        }
+        const followers = await getFollower(who)
+        const following = await getFollowing(who)
+        const followed = await aFollow(who, data.username)
+        res.status(200).send(
+            {
+                "name": data.name,
+                "username": data.username,
+                "followers": followers,
+                "following": following,
+                "followed": followed,
+                "bio": data.description
+            })
+    }
+    catch (err) {
+        console.error(err);
+        serveurError(res)
+    };
 }
 
 

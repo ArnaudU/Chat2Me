@@ -40,7 +40,10 @@ export function login(user) {
 export function logout() {
     return (
         api.post('/logout', getItem('session'))
-            .then(removeItem('token') && removeItem('session'))
+            .then(() => {
+                removeItem('token');
+                removeItem('session')
+            })
     )
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ListMessage from '../components/ListMessage';
 import { useEffect, useState } from 'react';
 import { getRecentPost } from '../services/PostApi';
+import StatsProfil from '../components/StatsProfil';
 const Home = () => {
     const [posts, setPosts] = useState(null)
 
@@ -21,6 +22,7 @@ const Home = () => {
     return (
         <div className='home main'>
             <ListMessage posts={posts} />
+
         </div>
     );
 };

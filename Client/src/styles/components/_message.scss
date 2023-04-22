@@ -2,7 +2,6 @@
     section {
         .contains {
             .top_container {
-
                 .setMessage {
                     img {
                         margin: 10px;
@@ -45,12 +44,9 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-
-
         }
 
         ul {
-
             border-top: 1px solid;
             padding: 12px;
             border-bottom: 8px solid $color_1;
@@ -73,7 +69,6 @@
                 span {
                     padding-right: 10px;
                 }
-
             }
 
             #nbLike:hover {
@@ -107,7 +102,9 @@
             background-color: $retweet_color;
             border-radius: 20px;
         }
-
-
     }
+}
+
+.contains * {
+    cursor: pointer;
 }

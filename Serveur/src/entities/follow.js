@@ -1,4 +1,3 @@
-const pageError = require('../error/PageErreur');
 const serveurError = require('../error/ServeurErreur');
 const userError = require('../error/UserErreur');
 const Follow = require('../schema/followSchema')
@@ -9,24 +8,24 @@ async function setFollow(req, res) {
         return authError(res);
     }
     try {
-        const follower = req.session.user_id;
+        const follower = req.session.user;
         let userToFollow = await User.findOne({ username: req.params.id });
         if (!userToFollow) {
             return userError(res)
         }
-        let followed = userToFollow._id
+        let following = userToFollow.username
 
         // Vérifie si la relation "follow" n'existe pas déjà
         const existingFollow = await Follow.findOne({
             follower: follower,
-            followed: followed
+            following: following
         });
 
         if (req.method === 'POST') {
             if (!existingFollow) {
-                const newFollow = new Follow({
+                let newFollow = new Follow({
                     follower: follower,
-                    followed: followed
+                    following: following
                 });
                 // Sauvegarde la nouvelle relation "follow" dans la base de données
                 await newFollow.save();
@@ -34,33 +33,35 @@ async function setFollow(req, res) {
             }
             return res.status(400).json({ error: 'La relation existe deja' });
         }
-        if (existingFollow) {
-            await existingFollow.deleteOne();
-            return res.status(200).json({ message: "Le follow a été supprimé avec succès." });
+        if (req.method === 'DELETE') {
+            if (existingFollow) {
+                await existingFollow.deleteOne();
+                return res.status(200).json({ message: "Le follow a été supprimé avec succès." });
+            }
+            return res.status(400).json({ error: 'La relation n\'existe pas' });
         }
-        return res.status(400).json({ error: 'La relation n\'existe pas' });
+
     } catch (err) {
         console.error(err);
         serveurError(res)
     }
 }
 
-async function getFollowList(req, res, which) {
+
+
+async function getFollowList(req, res, which, who) {
     if (!req.session) {
         return authError(res);
     }
     try {
-        if (!req.params.id) {
-            return await Follow.find({ [which]: req.session.user_id })
+
+        let userFind = await User.findOne({ username: req.params.id });
+        if (!userFind) {
+            return userError(res)
         }
-        else {
-            let userFind = await User.findOne({ username: req.params.id });
-            if (!userFind) {
-                return userError(res)
-            }
-            let userid = userFind._id
-            return await Follow.find({ [which]: userid });
-        }
+        let userid = userFind.username
+        let followers = await Follow.find({ [which]: userid }).select(`${who}`);
+        res.status(200).send(followers)
     }
     catch (err) {
         console.error(err);
@@ -69,20 +70,37 @@ async function getFollowList(req, res, which) {
 }
 
 function getFollowerList(req, res) {
-    return getFollowList(req, res, "follower")
+    return getFollowList(req, res, "following", "follower")
 }
 
-function getFollowedList(req, res) {
-    return getFollowList(req, res, "followed")
+function getFollowingList(req, res) {
+    return getFollowList(req, res, "follower", "following")
 }
 
-function getInfos(req, res) {
+async function getFollower(followerID) {
+    return (
+        // Récupère tous les documents de la collection Follow où le follower est donné
+        await Follow.find({ following: followerID }, 'follower')
+    )
+}
+async function getFollowing(followerID) {
+    return (
+        // Récupère tous les documents de la collection Follow où le follower est donné
+        await Follow.find({ follower: followerID }, 'following')
+    )
+}
 
+async function aFollow(followerID, followedID) {
+    return (
+        await Follow.find({ follower: followerID, following: followedID }).length
+    )
 }
 
 module.exports = {
     setFollow: setFollow,
     getFollowerList: getFollowerList,
-    getFollowedList: getFollowedList,
-    getInfos: getInfos
+    getFollowingList: getFollowingList,
+    getFollower: getFollower,
+    getFollowing: getFollowing,
+    aFollow: aFollow
 };

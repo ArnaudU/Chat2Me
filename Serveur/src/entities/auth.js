@@ -55,16 +55,25 @@ function login(req, res) {
         username: req.body.username,
     })
         .then((user) => {
-            if (user && bcrypt.compare(req.body.pwd, user.pwd)) {
-                req.session.loggedIn = true;// marquer l'utilisateur comme connecté en utilisant la session
-                req.session.user = user.username;
-                req.session.user_id = user._id;
-                // Générer un token avec JWT
-                const token = jwt.sign(JSON.stringify(req.session), 'JK192DFKDFD582FDF41');
 
-                // Stocker le token dans la session de l'utilisateur
-                req.session.token = token;
-                res.status(200).json({ message: 'Connecter avec succes.', session: req.session });
+            if (user) {
+                bcrypt.compare(req.body.pwd, user.pwd)
+                    .then((response) => {
+                        if (response) {
+                            req.session.loggedIn = true;// marquer l'utilisateur comme connecté en utilisant la session
+                            req.session.user = user.username;
+                            req.session.user_id = user._id;
+                            // Générer un token avec JWT
+                            const token = jwt.sign(JSON.stringify(req.session), 'JK192DFKDFD582FDF41');
+                            // Stocker le token dans la session de l'utilisateur
+                            req.session.token = token;
+                            res.status(200).json({ message: 'Connecter avec succes.', session: req.session });
+                            return;
+                        }
+                        else {
+                            res.status(401).json({ error: "Utilisateur ou mot de passe invalide" });
+                        }
+                    })
             }
             else {
                 res.status(401).json({ error: "Utilisateur ou mot de passe invalide" });

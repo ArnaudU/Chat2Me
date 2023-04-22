@@ -1,6 +1,8 @@
-import React from 'react';
+import { createContext } from 'react';
 
-export default React.createContext({
+export const ErrorContext = createContext({
     error: "",
-    setError: value => { }
+    setError: (value) => {
+        return { error: value };
+    }
 });

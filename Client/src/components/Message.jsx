@@ -30,7 +30,6 @@ const Message = (props) => {
         minute: 'numeric',
     });
 
-
     const handleDeleteClick = () => {
         // Logique pour supprimer le message ici
         console.log(props.id)
@@ -71,12 +70,20 @@ const Message = (props) => {
             })
     }
 
+    function handleMessageID() {
+        console.log("la")
+    }
+
+    function changeUser() {
+        window.location.replace(`/user/${props.username}`)
+    }
+
     return (
-        <div className='message'>
-            <section>
-                <div className='contains'>
+        <div className='message' >
+            <section >
+                <div className='contains' onClick={handleMessageID}>
                     <div className="top_container">
-                        <img id="profil" src={profil_icon} alt="Profil" />
+                        <img onClick={changeUser} id="profil" src={profil_icon} alt="Profil" />
                         <h2 >@{props.username}</h2>
                         {((userLogged.user === props.username) &&
                             <div className="setMessage">
@@ -87,8 +94,8 @@ const Message = (props) => {
                             ||
                             (<>
                                 <div>
-                                    <img src='' id="delete" style={{ visibility: "hidden" }} />
-                                    <img src='' id="delete" style={{ visibility: "hidden" }} />
+                                    <img alt='' src='' id="delete" style={{ visibility: "hidden" }} />
+                                    <img alt='' src='' id="delete" style={{ visibility: "hidden" }} />
                                 </div>
                             </>)
                         }

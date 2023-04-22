@@ -20,11 +20,10 @@
 }
 
 .banniereMain {
-  display: fixed;
 
   form {
     @include verticalCenter;
-    padding-bottom: 20px;
+    padding-bottom: 2em;
 
     input {
       padding-left: 10px;

@@ -1,21 +1,29 @@
 .profilBody {
     font-size: 15px;
 
+    h1#pageName {
+
+        border-bottom: solid 6px $color_1;
+        padding-bottom: 10px;
+        color: $color_4;
+    }
+
+    h1 {
+        @include verticalCenter;
+        color: $color_3;
+    }
+
     form {
         flex-direction: column;
         padding: 25px;
         border-bottom: 1px solid $color_1;
         display: flex;
 
-        h1 {
-            @include verticalCenter;
-        }
-
         p {
             cursor: pointer;
         }
 
-        h2,
+        h1 h2,
         p {
 
             margin-bottom: 2vh;
@@ -23,7 +31,7 @@
 
         h2 {
             cursor: default;
-            color: aqua;
+            padding-block: 10px;
         }
 
         li {

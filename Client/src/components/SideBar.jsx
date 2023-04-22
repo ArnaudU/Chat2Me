@@ -12,7 +12,12 @@ import logo from '../assets/img/logo.png'
 
 const Sidebar = () => {
     const { isAuth } = useContext(AuthContext);
-    const userId = getUser().user
+    let userId;
+    try {
+        userId = getUser().user
+    }
+    catch { }
+
     async function handleLogout() {
         try {
             await logout()

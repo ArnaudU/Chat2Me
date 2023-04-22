@@ -70,7 +70,7 @@ button {
 textarea {
   resize: none;
   font-size: 15px;
-  border: solid 1px $color_1;
+  border: solid 2px $color_1;
   padding: 10px;
   opacity: 0.8;
 }
@@ -86,7 +86,16 @@ img {
 }
 
 .main {
-  padding-left: 120px;
-  padding-top: 2vh;
+  height: 100%;
+  padding-top: 10px;
+  margin-left: 120px;
+  box-sizing: border-box;
+}
 
+.stats {
+  float: right;
+
+  .clear {
+    clear: both;
+  }
 }

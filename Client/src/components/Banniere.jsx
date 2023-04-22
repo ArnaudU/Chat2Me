@@ -1,16 +1,12 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import Research from '../pages/Research';
+import Research from './Research';
 
-const Banniere = (props) => {
+const Banniere = () => {
     const { isAuth } = useContext(AuthContext);
     return (
         <header className={(isAuth ? "banniereMain banniere main" : "banniereFormulaire banniere main")}>
-
-            <div className="errorMessage">
-
-            </div>
             < h1 > Chat&Tweet</h1 >
             {
                 (!isAuth &&

@@ -1,10 +1,14 @@
 import Message from './Message';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getUsername } from '../services/UserApi';
 //variable pour récuperer une liste de message
 
 const ListMessage = (props) => {
-    const [posts] = useState(props.posts)
+    const [posts, setPost] = useState(props.posts)
+    useEffect(() => {
+        setPost(props.posts)
+    }, [props.posts]);
+
     return (
         < div >
             {posts.map((post) =>

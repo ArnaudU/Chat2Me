@@ -20,16 +20,6 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        //Liste d'User qui suit l'utilisateur courant
-        followers: {
-            type: Array,
-            default: [],
-        },
-        //Liste d'utilisateur que l'utilisateur courant suit
-        following: {
-            type: Array,
-            default: [],
-        },
         //Bio qui décrit l'utilisateur
         description: {
             type: String,
