@@ -22,7 +22,7 @@ export function getUserProfilInfo(user) {
 
 export function changeBio(newBio) {
     return (
-        api.post(`/user/${getUsername()}/description`, { description: newBio })
+        api.post(`/user/description`, { description: newBio })
             .then((response) => {
                 return response.status === 200
             })

@@ -11,7 +11,6 @@ import Setting from './pages/Setting';
 import Tweet from './pages/Tweet';
 import Banniere from './components/Banniere';
 import ListProfil from './pages/ListProfil';
-import Error from './components/Error';
 import MessageID from './pages/MessageID';
 
 const App = () => {
@@ -21,7 +20,6 @@ const App = () => {
   }, [])
   return (
     <Auth.Provider value={{ isAuth, setIsAuth }}>
-      <Error />
       <Banniere />
       <SideBar />
       <Routes>

@@ -1,72 +1,54 @@
-const serveurError = require('../error/ServeurErreur');
 const userError = require('../error/UserErreur');
 const Follow = require('../schema/followSchema')
 const User = require("../schema/userSchema")
 
 async function setFollow(req, res) {
-    if (!req.session) {
-        return authError(res);
+
+    const follower = req.session.user;
+    let userToFollow = await User.findOne({ username: req.params.id });
+    if (!userToFollow) {
+        return userError(res)
     }
-    try {
-        const follower = req.session.user;
-        let userToFollow = await User.findOne({ username: req.params.id });
-        if (!userToFollow) {
-            return userError(res)
-        }
-        let following = userToFollow.username
+    let following = userToFollow.username
 
-        // Vérifie si la relation "follow" n'existe pas déjà
-        const existingFollow = await Follow.findOne({
-            follower: follower,
-            following: following
-        });
+    // Vérifie si la relation "follow" n'existe pas déjà
+    const existingFollow = await Follow.findOne({
+        follower: follower,
+        following: following
+    });
 
-        if (req.method === 'POST') {
-            if (!existingFollow) {
-                let newFollow = new Follow({
-                    follower: follower,
-                    following: following
-                });
-                // Sauvegarde la nouvelle relation "follow" dans la base de données
-                await newFollow.save();
-                return res.status(200).json(newFollow);
-            }
-            return res.status(400).json({ error: 'La relation existe deja' });
+    if (req.method === 'POST') {
+        if (!existingFollow) {
+            let newFollow = new Follow({
+                follower: follower,
+                following: following
+            });
+            // Sauvegarde la nouvelle relation "follow" dans la base de données
+            await newFollow.save();
+            return res.status(200).json(newFollow);
         }
-        if (req.method === 'DELETE') {
-            if (existingFollow) {
-                await existingFollow.deleteOne();
-                return res.status(200).json({ message: "Le follow a été supprimé avec succès." });
-            }
-            return res.status(400).json({ error: 'La relation n\'existe pas' });
+        return res.status(400).json({ error: 'La relation existe deja' });
+    }
+    if (req.method === 'DELETE') {
+        if (existingFollow) {
+            await existingFollow.deleteOne();
+            return res.status(200).json({ message: "Le follow a été supprimé avec succès." });
         }
-
-    } catch (err) {
-        console.error(err);
-        serveurError(res)
+        return res.status(400).json({ error: 'La relation n\'existe pas' });
     }
 }
 
 
 
 async function getFollowList(req, res, which, who) {
-    if (!req.session) {
-        return authError(res);
+    let userFind = await User.findOne({ username: req.params.id });
+    if (!userFind) {
+        return userError(res)
     }
-    try {
+    let userid = userFind.username
+    let followers = await Follow.find({ [which]: userid }).select(`${who}`);
+    res.status(200).send(followers)
 
-        let userFind = await User.findOne({ username: req.params.id });
-        if (!userFind) {
-            return userError(res)
-        }
-        let userid = userFind.username
-        let followers = await Follow.find({ [which]: userid }).select(`${who}`);
-        res.status(200).send(followers)
-    }
-    catch (err) {
-        console.error(err);
-        serveurError(res)
-    }
 }
 
 function getFollowerList(req, res) {

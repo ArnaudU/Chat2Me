@@ -6,7 +6,7 @@ import Research from './Research';
 const Banniere = () => {
     const { isAuth } = useContext(AuthContext);
     return (
-        <header className={(isAuth ? "banniereMain banniere main" : "banniereFormulaire banniere main")}>
+        <header className={(isAuth ? "banniereMain banniere main" : "banniereFormulaire banniere ")}>
             < h1 > Chat&Tweet</h1 >
             {
                 (!isAuth &&

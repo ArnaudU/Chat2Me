@@ -25,29 +25,30 @@ async function signup(req, res) {
         if (hasSpecialCharacters(req.body.name)) {
             throw new Error("*Pas de caractère spéciaux pour le nom")
         }
+    }
+    catch (err) {
+        res.status(401).json({ error: err.message })
+        return
+    }
+    finally {
         // Création d'un nouvel utilisateur à partir des informations reçues dans la requête
         const newUser = new User({
             username: req.body.username,
             pwd: await bcrypt.hash(req.body.pwd, LEN_HASH),
             name: req.body.name
         });
-        try {
-            //Sauvegarde du nouvel utilisateur dans la base de données
-            const existingUser = await User.findOne({ username: req.body.username });
-            if (existingUser) {
-                return res.status(409).json({ error: 'Le nom d\'utilisateur est déjà utilisé.' }).end();
-            }
-            await newUser.save()
-            res.status(200).send(`Bienvenue ${req.body.name} vous etes bien inscrit sur Chat2Me!`);
+        //Sauvegarde du nouvel utilisateur dans la base de données
+        const existingUser = await User.findOne({ username: req.body.username });
+        if (existingUser) {
+            return res.status(409).json({ error: 'Le nom d\'utilisateur est déjà utilisé.' }).end();
         }
-        catch {
-            serveurError(res)
-        }
-    }
-    catch (err) {
-        res.status(401).json({ error: err.message }).end()
+        await newUser.save()
+        res.status(200).send(`Bienvenue ${req.body.name} vous etes bien inscrit sur Chat2Me!`);
     }
 }
+
+
+
 
 function login(req, res) {
 
@@ -78,10 +79,6 @@ function login(req, res) {
             else {
                 res.status(401).json({ error: "Utilisateur ou mot de passe invalide" });
             }
-        })
-        .catch((err) => {
-            console.log(err)
-            serveurError(res)
         })
 }
 
