@@ -6,6 +6,7 @@ const auth = require('./entities/auth.js')
 const serveurError = require("./error/ServeurErreur.js")
 const tokenError = require("./error/TokenErreur.js")
 
+
 //Pour toute les routes on verifie si il est connecté 
 router.use((req, res, next) => {
     if (!(req.path === '/signup' || req.path === '/login' || req.path === '/logout')) {
@@ -43,6 +44,11 @@ router.get("/message/user/:id/", post.getMessagesFromId)//permet d’obtenir l�
 router.get("/message/recent", post.getRecentPost)//permet d’obtenir les stats sur les messages de l’user userid.
 router.post("/message/:msgid/like", post.likeMessage)//OK
 router.post("/message/:msgid/retweet", post.retweetMessage)//OK
+router.post("/message/search", post.searchMessage)
+
+router.post("/response/:msgid", post.createResponse)
+router.get("/response/:msgid", post.getAllResponse)
+
 
 router.post("/follow/:id", follow.setFollow)//permet d'ajouter en amis
 router.delete("/follow/:id", follow.setFollow)//permet de supprimer un ami

@@ -12,6 +12,7 @@ import Tweet from './pages/Tweet';
 import Banniere from './components/Banniere';
 import ListProfil from './pages/ListProfil';
 import MessageID from './pages/MessageID';
+import ResearchMessage from './pages/ResearchMessage';
 
 const App = () => {
   const [isAuth, setIsAuth] = useState(hasAuth());
@@ -20,6 +21,7 @@ const App = () => {
   }, [])
   return (
     <Auth.Provider value={{ isAuth, setIsAuth }}>
+      {isAuth && <aside className='vide' />}
       <Banniere />
       <SideBar />
       <Routes>
@@ -32,9 +34,9 @@ const App = () => {
         <Route path='/follower/:id' element={isAuth ? <ListProfil which={"follower"} /> : <Navigate replace to="/auth" />} />
         <Route path='/following/:id' element={isAuth ? <ListProfil which={"following"} /> : <Navigate replace to="/auth" />} />
         <Route path='/message/:msgid' element={isAuth ? <MessageID /> : <Navigate replace to="/auth" />} />
+        <Route path='/search' element={isAuth ? <ResearchMessage /> : <Navigate replace to="/auth" />} />
         <Route path='/*' element={<Navigate replace to="/auth" />} />
       </Routes >
-
     </Auth.Provider>
   );
 };

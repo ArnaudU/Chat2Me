@@ -8,6 +8,7 @@ const Profil = (props) => {
     let [followers, setFollowers] = useState([])
     let [following, setFollowing] = useState([])
     let [userFound, setUserFound] = useState(true)
+    let [name, setName] = useState()
     let [bio, setBio] = useState()
     const [aFollow, setAFollow] = useState()
     const [actualise, setActualise] = useState(true)
@@ -18,6 +19,7 @@ const Profil = (props) => {
                 if (info) {
                     setFollowers(info.followers)
                     setFollowing(info.following)
+                    setName(info.name)
                     setBio(info.bio)
                     const result = info.followers.find(follower => follower.follower === getUsername())
                     setAFollow(result)
@@ -73,13 +75,16 @@ const Profil = (props) => {
                         {aFollow ? "Retirer" : "Suivre"}
                     </button>
                 }
-                <h1 id='identifiant'>@{id}</h1>
+                <h1>{name}</h1>
+                <h3 id='identifiant'>@{id}</h3>
+                <p id='bio'>{bio}</p>
+                <div className="row">
+                    <p onClick={handleFollowerList} id='nbFollower'>{followers.length} Abonnées</p>
+                    <p onClick={handleFollowingList} id='nbFollowed'>{following.length} Abonnements</p>
+                </div>
 
-                <p onClick={handleFollowerList} id='nbFollower'>{followers.length} Abonnées</p>
-                <p onClick={handleFollowingList} id='nbFollowed'>{following.length} Abonnements</p>
-                <h2 id='bio'>{bio}</h2>
             </form>
-        </div>
+        </div >
     );
 };
 

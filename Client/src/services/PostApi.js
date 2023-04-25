@@ -13,14 +13,24 @@ export function getPostsFromId(id) {
     return (
         Api.get(`/message/user/${id}`)
             .then((response) => {
-                return response
+                return response.data
             })
     )
 }
 
-export function getMessage(id) {
+export function getPost(id) {
     return (
         Api.get(`/message/${id}/get`)
+            .then((response) => {
+                console.log(response.data)
+                return response.data
+            })
+    )
+}
+
+export function searchMessage(value) {
+    return (
+        Api.post('/message/search', { content: value })
             .then((response) => {
                 return response.data
             })
@@ -31,7 +41,7 @@ export function getRecentPost() {
     return (
         Api.get('/message/recent')
             .then(response => {
-                return response
+                return response.data
             })
     )
 }
@@ -61,4 +71,20 @@ export function retweetMessage(msgid) {
                 return response
             })
     )
+}
+
+export function getAllResponse(msgid) {
+    return (
+        Api.get(`response/${msgid}`)
+            .then((response) => {
+                return response.data
+            }))
+}
+
+export function createResponse(msgid, content) {
+    return (
+        Api.post(`response/${msgid}`, content)
+            .then((response) => {
+                return response
+            }))
 }

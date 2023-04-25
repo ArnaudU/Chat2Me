@@ -6,7 +6,7 @@ const FormulaireInscription = () => {
     const [error, setError] = useState("")
 
     const LENGTH_MIN_USERNAME = 4;
-    const LENGTH_MIN_PASSWORD = 8;
+    const LENGTH_MIN_PASSWORD = 6;
 
     const [user, setUser] = useState({
         username: "",
@@ -69,7 +69,7 @@ const FormulaireInscription = () => {
     return (
         <div className='formulaire'>
 
-            <form action="/inscription" method="POST">
+            <form>
                 <h1>Enregistrement</h1>
                 <div className={user.name.length <= 0 ? "form-group red" : "form-group green"}>
                     <label htmlFor="name">

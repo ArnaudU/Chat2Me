@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Research = () => {
+const Research = (props) => {
     const [userSearch, setSearchTerm] = useState('');
     const handleInputChange = event => {
         setSearchTerm(event.target.value);
@@ -12,9 +12,8 @@ const Research = () => {
     };
 
     return (
-
-        <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Recherche..." value={userSearch} onChange={handleInputChange} />
+        <form className='research'>
+            <input type="text" placeholder={props.content} value={userSearch} onChange={handleInputChange} />
             <button onClick={handleSubmit}>Rechercher</button>
         </form>
     );

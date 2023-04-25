@@ -1,0 +1,24 @@
+textarea {
+    width: 100%;
+    max-height: 5em;
+    padding: 1em;
+    font-size: 25px;
+    line-height: 1.5;
+    cursor: text;
+}
+
+.repondre {
+    border-bottom: solid 1px;
+
+    button {
+        margin: 10px;
+        margin-left: 3em;
+        justify-content: flex-end;
+        align-items: center
+    }
+}
+
+.response {
+    border-left: dashed 1px;
+    margin-left: 10vh;
+}

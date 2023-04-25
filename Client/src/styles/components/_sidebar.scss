@@ -5,7 +5,7 @@
   top: 0;
   bottom: 0;
   border-right: 5px solid $color_1;
-  width: 120px;
+  width: 7.5em;
 
   #first {
     padding-bottom: 10vh;
@@ -14,16 +14,16 @@
   /* ou la largeur souhaitée */
   ul {
     display: flex;
-    margin: 20px;
+    margin: 1.5em;
     flex-direction: column;
 
     a {
-      padding: 10px;
-      margin-bottom: 3vh;
+      padding: 0.5em;
+      margin-bottom: 2em;
 
       img {
-        height: 50px;
-        width: 50px;
+        height: 3em;
+        width: 3em;
         object-fit: contain;
       }
 
@@ -42,7 +42,7 @@
 
     &::after {
       content: "";
-      height: 4px;
+      height: 0.3em;
       width: 0;
       background: $color_1;
       position: absolute;

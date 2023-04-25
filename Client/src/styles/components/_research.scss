@@ -1,0 +1,19 @@
+.research {
+    @include verticalCenter;
+    padding-bottom: 2em;
+
+    input {
+        padding-left: 10px;
+        margin-right: 20px;
+        width: 300px;
+        height: 40px;
+        font-size: 22px;
+        border-radius: 10px;
+        border: none;
+    }
+}
+
+.border_bottom {
+    margin-top: 20px;
+    border-bottom: solid 1px $color_1;
+}

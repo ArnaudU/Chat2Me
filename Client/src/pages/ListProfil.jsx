@@ -19,7 +19,7 @@ const ListProfil = (props) => {
     }
     return (
         <div className='main profilBody'>
-            <h1 id="pageName">Liste des {props.which} </h1>
+            <h1 id="pageName">Liste des {props.which === "following" ? "abonnenements" : "abonnées"} de @{id}</h1>
             {profils.map((profil) =>
                 <Profil
                     key={profil._id}

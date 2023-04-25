@@ -10,7 +10,7 @@ const ListMessage = (props) => {
     }, [props.posts]);
 
     return (
-        < div >
+        < main >
             {posts.map((post) =>
                 < Message
                     key={post._id}
@@ -25,7 +25,7 @@ const ListMessage = (props) => {
                     created={post.createdAt}
                 />
             )}
-        </div >
+        </main >
     );
 };
 

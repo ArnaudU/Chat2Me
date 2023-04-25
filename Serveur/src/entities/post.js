@@ -1,7 +1,6 @@
 const Post = require("../schema/postSchema")
 const User = require("../schema/userSchema")
 const Follow = require('../schema/followSchema')
-const authError = require("../error/AuthErreur")
 const pageError = require("../error/PageErreur")
 
 async function createMessage(req, res) {
@@ -62,7 +61,7 @@ async function setOrDelMessage(req, res) {
 
 async function getMessagesFromId(req, res) {
     let user = await User.findOne({ username: req.params.id }).select('_id').exec()
-    let posts = await Post.find({ user: user })
+    let posts = await Post.find({ user: user, reference: null })
         .select('-__v')
         .sort({ createdAt: -1 })
         .exec()
@@ -70,16 +69,9 @@ async function getMessagesFromId(req, res) {
 }
 
 
-async function getMessagesFromAllFollower(req, res) {
-    let user = await User.findOne({ username: req.params.id }).select('_id').exec()
-    let follows = await Follow.find({ follower: user }).select('followed -_id').exec()
-    let followedIds = follows.map((follow) => follow.followed)
-    let posts = await Post.find({ user: { $in: followedIds } }).select('-_id -__v').exec()
-    res.status(200).json(posts)
-}
 
 async function getRecentPost(req, res) {
-    const posts = await Post.find()
+    const posts = await Post.find({ reference: null })
         .sort({ createdAt: -1 }) // trier par date de création décroissante
     res.status(200).json(posts).end();
 }
@@ -127,13 +119,50 @@ async function getMessage(req, res) {
     res.status(200).send(post)
 }
 
+async function searchMessage(req, res) {
+    const regex = new RegExp(req.body.content, "i");
+    const posts = await Post.find({ content: { $regex: regex }, reference: null });
+    res.status(200).send(posts)
+}
+
+async function createResponse(req, res) {
+    if (!req.body.content) {
+        res.send(401).send("Besoin d'un body avec le champ content")
+    }
+    let user = await User.findOne({ username: req.session.user })
+    let msg = await Post.findOne({ _id: req.params.msgid })
+
+    if (user && msg) {
+        let newComment = new Post({
+            content: req.body.content,
+            user: user.id,
+            username: user.username,
+            reference: req.params.msgid
+        });
+        await newComment.save();
+        msg.response.push(newComment._id)
+        await msg.save()
+        res.status(200).send("Votre reponse est bien ajouté!")
+        return
+    }
+    res.status(401).json({ error: "Erreur serveur le nom d'utilisateur ou l'id du message non valide" })
+}
+
+async function getAllResponse(req, res) {
+    let posts = await Post.find({ reference: req.params.msgid })
+        .sort({ createdAt: -1 }) // trier par date de création décroissante
+    res.status(200).send(posts)
+}
+
 module.exports = {
     createMessage: createMessage,
+    searchMessage: searchMessage,
     getMessage: getMessage,
     setOrDelMessage: setOrDelMessage,
     getMessagesFromId: getMessagesFromId,
-    getMessagesFromAllFollower: getMessagesFromAllFollower,
     getRecentPost: getRecentPost,
     likeMessage: likeMessage,
-    retweetMessage: retweetMessage
+    retweetMessage: retweetMessage,
+    createResponse: createResponse,
+    getAllResponse: getAllResponse
 }

@@ -14,6 +14,12 @@ const postSchema = new Schema({
         type: Array,
         default: []
     },
+
+    reference: {
+        type: Schema.Types.ObjectId,
+        default: null,
+    },
+
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -23,10 +29,12 @@ const postSchema = new Schema({
         type: String, // Ajout de l'attribut username
         required: true
     },
+
     response: {
         type: Array,
         default: []
     },
+
     createdAt: {
         type: Date,
         default: Date.now

@@ -1,7 +1,6 @@
 .sendmessage {
     @include verticalCenter;
     flex-direction: column;
-    padding-left: 150px;
 
     h1 {
         margin-top: 50px;
@@ -11,8 +10,7 @@
     textarea {
         font-size: 25px;
         margin: 50px;
-        height: 40vh;
-        width: 80%;
+        width: 60%;
         padding: 20px;
     }
 

@@ -9,6 +9,7 @@ import AuthContext from '../context/AuthContext';
 import { getUser } from '../services/UserApi'
 import { logout } from '../services/AuthApi'
 import logo from '../assets/img/logo.png'
+import loupe from '../assets/img/loupe.svg'
 
 const Sidebar = () => {
     const { isAuth } = useContext(AuthContext);
@@ -37,6 +38,9 @@ const Sidebar = () => {
                     <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>
                         <img id='home' src={home} alt="Accueil" />
                     </NavLink>
+                    <NavLink to="/search" className={(nav) => (nav.isActive ? "nav-active grow" : "grow")}>
+                        <img src={loupe} alt="logo WorldBird" />
+                    </NavLink>
                     <NavLink to={`/user/${userId}`} className={(nav) => (nav.isActive ? "nav-active grow" : "grow")} >
                         <img src={profil} alt="Profil" />
                     </NavLink>
@@ -49,7 +53,6 @@ const Sidebar = () => {
                     <NavLink to="" className="grow">
                         <img id="deconnexion" src={deconnexion} alt="Deconnecter" onClick={handleLogout} />
                     </NavLink>
-
                 </ul>
             </aside >
         </>

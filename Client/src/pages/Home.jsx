@@ -2,14 +2,14 @@ import React from 'react';
 import ListMessage from '../components/ListMessage';
 import { useEffect, useState } from 'react';
 import { getRecentPost } from '../services/PostApi';
-import StatsProfil from '../components/StatsProfil';
+
 const Home = () => {
     const [posts, setPosts] = useState(null)
 
     useEffect(() => {
         getRecentPost()
             .then(response => {
-                setPosts(response.data)
+                setPosts(response)
             })
             .catch(error => {
                 setPosts(error)

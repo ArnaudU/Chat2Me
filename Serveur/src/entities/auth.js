@@ -48,8 +48,6 @@ async function signup(req, res) {
 }
 
 
-
-
 function login(req, res) {
 
     User.findOne({

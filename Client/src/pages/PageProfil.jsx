@@ -14,7 +14,7 @@ const PageProfil = () => {
     useEffect(() => {
         getPostsFromId(id)
             .then((response) => {
-                setPosts(response.data)
+                setPosts(response)
             })
             .catch(error => {
                 console.log(error)

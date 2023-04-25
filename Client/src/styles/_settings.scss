@@ -73,10 +73,12 @@ textarea {
   border: solid 2px $color_1;
   padding: 10px;
   opacity: 0.8;
+  cursor: text;
 }
 
 input {
   background-color: #4c515c;
+  cursor: text;
 }
 
 img {
@@ -90,6 +92,7 @@ img {
   padding-top: 10px;
   margin-left: 120px;
   box-sizing: border-box;
+  padding-right: 7.5em;
 }
 
 .stats {
@@ -104,4 +107,24 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.vide {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 7.8em;
+  border-left: 5px solid;
+}
+
+.fleche {
+  margin-left: 0.25em;
+  border-radius: 50px;
+  font-size: 3em;
+  cursor: pointer;
+}
+
+.fleche:hover {
+  background-color: #4c515c;
 }

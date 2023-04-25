@@ -3,37 +3,32 @@
     @include verticalCenter;
     color: $color_1;
     font-size: 80px;
-    margin: 5px auto;
-    padding: 5px 0;
+    margin: 10px auto;
   }
 
   border-bottom: 7px solid $color_1;
 }
 
 .banniereFormulaire {
-  display: flex;
-  align-items: center;
 
-  button {
-    margin: 10px;
+  height: 9em;
+  flex-direction: column;
+
+  h1 {
+    display: flex;
+    align-items: center;
 
   }
-}
 
-.banniereMain {
+  button#connex {
+    position: absolute;
+    top: 2%;
+    right: 5%;
+  }
 
-  form {
-    @include verticalCenter;
-    padding-bottom: 2em;
-
-    input {
-      padding-left: 10px;
-      margin-right: 20px;
-      width: 250px;
-      height: 40px;
-      font-size: 22px;
-      border-radius: 10px;
-      border: none;
-    }
+  button#insc {
+    position: absolute;
+    top: 8%;
+    right: 5%;
   }
 }

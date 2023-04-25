@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import Research from './Research';
+import Research from './ResearchUser';
 
 const Banniere = () => {
     const { isAuth } = useContext(AuthContext);
@@ -12,14 +12,14 @@ const Banniere = () => {
                 (!isAuth &&
                     <>
                         <NavLink to="/inscription" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                            <button>Inscription</button>
+                            <button id="insc">Inscription</button>
                         </NavLink>
                         <NavLink to="/connexion" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-                            <button>Connexion</button>
+                            <button id="connex">Connexion</button>
                         </NavLink>
                     </>
                 ) ||
-                <Research />
+                <Research content={"Recherche d'utilisateur..."} />
             }
         </header >
 
