@@ -24,7 +24,7 @@ const userSchema = new Schema(
         description: {
             type: String,
             max: 100,
-            default: "Pas de bio"
+            default: ""
         },
         createdAt: {
             type: Date,

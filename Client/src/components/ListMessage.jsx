@@ -8,7 +8,6 @@ const ListMessage = (props) => {
     useEffect(() => {
         setPost(props.posts)
     }, [props.posts]);
-
     return (
         < main >
             {posts.map((post) =>
@@ -23,6 +22,7 @@ const ListMessage = (props) => {
                     aLike={post.like.includes(getUsername())}
                     aRt={post.retweet.includes(getUsername())}
                     created={post.createdAt}
+                    retweeted={post.retweeted}
                 />
             )}
         </main >

@@ -7,6 +7,7 @@ const serveurError = require("./error/ServeurErreur.js")
 const tokenError = require("./error/TokenErreur.js")
 
 
+
 //Pour toute les routes on verifie si il est connecté 
 router.use((req, res, next) => {
     if (!(req.path === '/signup' || req.path === '/login' || req.path === '/logout')) {
@@ -19,14 +20,13 @@ router.use((req, res, next) => {
         }
     }
     try {
-        return next();
+        next();
     }
     catch (err) {
         console.error(err);
         serveurError(res)
     }
 });
-
 
 router.post("/signup", auth.signup)//OK// permet de creer un compte
 router.post("/login", auth.login) //OK//permet de se connecter
@@ -41,10 +41,13 @@ router.get("/message/:msgid/get", post.getMessage)
 router.post("/message/post/:msgid", post.setOrDelMessage)//OK//modifier un post
 router.delete("/message/delete/:msgid", post.setOrDelMessage)//OK//supprimer un post
 router.get("/message/user/:id/", post.getMessagesFromId)//permet d’obtenir l’affichage de tous les messages d’un id de user dont l’id est ":id"
+
 router.get("/message/recent", post.getRecentPost)//permet d’obtenir les stats sur les messages de l’user userid.
 router.post("/message/:msgid/like", post.likeMessage)//OK
 router.post("/message/:msgid/retweet", post.retweetMessage)//OK
 router.post("/message/search", post.searchMessage)
+router.get("/message/:id/retweet", post.getRetweetPostByUser)
+router.get("/message/follow/all", post.getMessagesFromAllFollower)//permet d’obtenir l’affichage de tous les amis messages de tous les amis de user dont l’id est userid
 
 router.post("/response/:msgid", post.createResponse)
 router.get("/response/:msgid", post.getAllResponse)
@@ -54,6 +57,7 @@ router.post("/follow/:id", follow.setFollow)//permet d'ajouter en amis
 router.delete("/follow/:id", follow.setFollow)//permet de supprimer un ami
 router.get("/follower/:id", follow.getFollowerList)//permet d'obtenir la liste d'amis
 router.get("/following/:id", follow.getFollowingList)//permet d'obtenir la liste d'amis
+
 
 
 module.exports = router;

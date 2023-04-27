@@ -1,0 +1,42 @@
+.menu-horizontal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    border-bottom: solid 1px;
+}
+
+.menu-horizontal ul {
+    list-style: none;
+    display: flex;
+}
+
+.menu-horizontal ul li {
+
+    margin-right: 20px;
+}
+
+.menu-horizontal ul li:last-child {
+    margin-right: 0;
+}
+
+.menu-horizontal ul li p {
+    color: $color_1;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+.menu-horizontal ul li p:hover {
+    position: relative;
+    background-color: $color_1;
+    color: #fff;
+}
+
+.menu-horizontal {
+    .underlined {
+        background-color: $color_1;
+    }
+}

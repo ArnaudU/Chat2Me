@@ -154,7 +154,27 @@ async function getAllResponse(req, res) {
     res.status(200).send(posts)
 }
 
+async function getRetweetPostByUser(req, res) {
+    const user_id = req.params.id;
+    const retweetPosts = await Post.find({ retweet: user_id }).exec();
+    res.json(retweetPosts);
+}
+
+async function getMessagesFromAllFollower(req, res) {
+    let follows = await Follow.find({ follower: req.session.user }).select('following -_id').exec()
+    const posts = await Post.find({ username: { $in: follows.map(f => f.following) } })
+        .select('-__v')
+        .sort({ createdAt: -1 })
+        .exec();
+
+    res.status(200).json(posts)
+}
+
+
+
 module.exports = {
+    getMessagesFromAllFollower: getMessagesFromAllFollower,
+    getRetweetPostByUser: getRetweetPostByUser,
     createMessage: createMessage,
     searchMessage: searchMessage,
     getMessage: getMessage,

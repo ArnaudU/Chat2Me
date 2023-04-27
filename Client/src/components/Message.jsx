@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import coeur_icon from '../assets/img/coeur.svg';
 import msg_icon from '../assets/img/message.svg';
 import del_icon from '../assets/img/poubelle.svg'
-import set_msg_icon from '../assets/img/setMessage.svg'
 import retweet_icon from '../assets/img/retweet.svg'
 import profil_icon from '../assets/img/profil.svg'
 import { getUser, getUsername } from '../services/UserApi'
@@ -32,7 +31,6 @@ const Message = (props) => {
 
     const handleDeleteClick = () => {
         // Logique pour supprimer le message ici
-        console.log(props.id)
         deleteMessage(props.id)
             .then((response) => {
                 if (response) {
@@ -77,11 +75,13 @@ const Message = (props) => {
     function changeUser() {
         window.location.replace(`/user/${props.username}`)
     }
-
     return (
         <div className='message' >
             <section >
                 <div className='contains' >
+                    {
+                        props.retweeted ? <h3 id="retweeted">{props.retweeted} a retweet</h3> : ""
+                    }
                     <div className="top_container">
                         <img onClick={changeUser} id="profil" src={profil_icon} alt="Profil" />
                         <h2 >@{props.username}</h2>

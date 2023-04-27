@@ -18,11 +18,37 @@ export function getPostsFromId(id) {
     )
 }
 
+export function getRetweetPostFromId(id) {
+    return (
+        Api.get(`/message/${id}/retweet`)
+            .then((response) => {
+                const posts = response.data;
+                // Ajouter l'attribut "retweeted" à chaque élément de l'array
+                const retweetedPosts = posts.map(post => {
+                    return {
+                        ...post,
+                        retweeted: id
+                    };
+                });
+                return retweetedPosts;
+            })
+    )
+}
+
+export async function getProfilPost(id) {
+    const obj1 = await getPostsFromId(id);
+    const obj2 = await getRetweetPostFromId(id);
+    const posts = [...obj1, ...obj2].filter((post, index, self) =>
+        index === self.findIndex(p => p._id === post._id)
+    );
+    posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return posts;
+}
+
 export function getPost(id) {
     return (
         Api.get(`/message/${id}/get`)
             .then((response) => {
-                console.log(response.data)
                 return response.data
             })
     )
@@ -79,6 +105,15 @@ export function getAllResponse(msgid) {
             .then((response) => {
                 return response.data
             }))
+}
+
+export function getMessagesFromAllFollower() {
+    return (
+        Api.get('/message/follow/all')
+            .then((response) => {
+                return response.data
+            })
+    )
 }
 
 export function createResponse(msgid, content) {
