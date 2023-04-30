@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../Api'
+import { signup } from '../services/AuthApi';
 
 const FormulaireInscription = () => {
     const [confirmer, setConfirmer] = useState("")
@@ -52,7 +52,7 @@ const FormulaireInscription = () => {
             if (hasSpecialCharacters(user.name) || hasSpecialCharacters(user.login)) {
                 throw new Error("*Pas de caractère spéciaux pour le nom et login")
             }
-            const response = await api.post('/signup', user)
+            const response = await signup(user)
             if (response.status === 200) {
                 console.log(response.data)
                 setError(response.data)

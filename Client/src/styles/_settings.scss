@@ -128,3 +128,12 @@ img {
 .fleche:hover {
   background-color: #4c515c;
 }
+
+.alignCenter {
+  padding-top: 5em;
+  color: $fav_color;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -8,6 +8,12 @@ const ListMessage = (props) => {
     useEffect(() => {
         setPost(props.posts)
     }, [props.posts]);
+    if (posts.length === 0) {
+        return (<main>
+            <p className='alignCenter'>Vous n'avez pas d'abonnées</p>
+        </main>)
+
+    }
     return (
         < main >
             {posts.map((post) =>

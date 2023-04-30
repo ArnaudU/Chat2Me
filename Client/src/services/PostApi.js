@@ -1,8 +1,8 @@
-import Api from "../Api";
+import proxy from "../Proxy";
 
 export async function createMessage(content) {
     return (
-        Api.post('/message', content)
+        proxy.post('/message', content)
             .then(response => {
                 return response.status === 200
             })
@@ -11,7 +11,7 @@ export async function createMessage(content) {
 
 export function getPostsFromId(id) {
     return (
-        Api.get(`/message/user/${id}`)
+        proxy.get(`/message/user/${id}`)
             .then((response) => {
                 return response.data
             })
@@ -20,7 +20,7 @@ export function getPostsFromId(id) {
 
 export function getRetweetPostFromId(id) {
     return (
-        Api.get(`/message/${id}/retweet`)
+        proxy.get(`/message/${id}/retweet`)
             .then((response) => {
                 const posts = response.data;
                 // Ajouter l'attribut "retweeted" à chaque élément de l'array
@@ -47,7 +47,7 @@ export async function getProfilPost(id) {
 
 export function getPost(id) {
     return (
-        Api.get(`/message/${id}/get`)
+        proxy.get(`/message/${id}/get`)
             .then((response) => {
                 return response.data
             })
@@ -56,7 +56,7 @@ export function getPost(id) {
 
 export function searchMessage(value) {
     return (
-        Api.post('/message/search', { content: value })
+        proxy.post('/message/search', { content: value })
             .then((response) => {
                 return response.data
             })
@@ -65,7 +65,7 @@ export function searchMessage(value) {
 
 export function getRecentPost() {
     return (
-        Api.get('/message/recent')
+        proxy.get('/message/recent')
             .then(response => {
                 return response.data
             })
@@ -74,7 +74,7 @@ export function getRecentPost() {
 
 export function deleteMessage(msgid) {
     return (
-        Api.delete(`message/delete/${msgid}`)
+        proxy.delete(`message/delete/${msgid}`)
             .then((response) => {
                 return response
             })
@@ -83,7 +83,7 @@ export function deleteMessage(msgid) {
 
 export function likeMessage(msgid) {
     return (
-        Api.post(`message/${msgid}/like`)
+        proxy.post(`message/${msgid}/like`)
             .then((response) => {
                 return response
             })
@@ -92,7 +92,7 @@ export function likeMessage(msgid) {
 
 export function retweetMessage(msgid) {
     return (
-        Api.post(`message/${msgid}/retweet`)
+        proxy.post(`message/${msgid}/retweet`)
             .then((response) => {
                 return response
             })
@@ -101,7 +101,7 @@ export function retweetMessage(msgid) {
 
 export function getAllResponse(msgid) {
     return (
-        Api.get(`response/${msgid}`)
+        proxy.get(`response/${msgid}`)
             .then((response) => {
                 return response.data
             }))
@@ -109,7 +109,7 @@ export function getAllResponse(msgid) {
 
 export function getMessagesFromAllFollower() {
     return (
-        Api.get('/message/follow/all')
+        proxy.get('/message/follow/all')
             .then((response) => {
                 return response.data
             })
@@ -118,7 +118,7 @@ export function getMessagesFromAllFollower() {
 
 export function createResponse(msgid, content) {
     return (
-        Api.post(`response/${msgid}`, content)
+        proxy.post(`response/${msgid}`, content)
             .then((response) => {
                 return response
             }))

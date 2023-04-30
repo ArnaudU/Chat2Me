@@ -1,8 +1,8 @@
-import api from '../Api'
+import proxy from '../Proxy'
 
 export function addfollow(id) {
     return (
-        api.post(`/follow/${id}`)
+        proxy.post(`/follow/${id}`)
             .then((res) => {
                 if (res.status === 200) {
                     return true
@@ -18,7 +18,7 @@ export function addfollow(id) {
 
 export function deletefollow(id) {
     return (
-        api.delete(`/follow/${id}`)
+        proxy.delete(`/follow/${id}`)
             .then((res) => {
                 if (res.status === 200) {
                     return true
@@ -35,7 +35,7 @@ export function deletefollow(id) {
 
 export function getListFollow(id, which) {
     return (
-        api.get(`/${which}/${id}`)
+        proxy.get(`/${which}/${id}`)
             .then((res) => {
                 if (res.status === 200) {
                     return res.data

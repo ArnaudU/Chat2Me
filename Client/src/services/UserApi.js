@@ -1,4 +1,4 @@
-import api from '../Api';
+import api from '../Proxy'
 import { getItem } from './LocaleStorage';
 
 export function getUser() {

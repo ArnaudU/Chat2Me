@@ -1,4 +1,4 @@
-import api from '../Api'
+import proxy from '../Proxy'
 import jwtDecode from 'jwt-decode';
 import { getItem, addItem, removeItem } from './LocaleStorage';
 
@@ -10,7 +10,7 @@ export function hasAuth() {
         return false;
     }
 
-    return (api.get("/profil")
+    return (proxy.get("/profil")
         .then((res) => {
             return res.status === 200
         })
@@ -22,7 +22,7 @@ export function hasAuth() {
 
 export function login(user) {
     return (
-        api.post('/login', user)
+        proxy.post('/login', user)
             .then(response =>
                 response.data.session
             )
@@ -39,7 +39,7 @@ export function login(user) {
 
 export function logout() {
     return (
-        api.post('/logout', getItem('session'))
+        proxy.post('/logout', getItem('session'))
             .then(() => {
                 removeItem('token');
                 removeItem('session')
@@ -47,6 +47,9 @@ export function logout() {
     )
 }
 
+export async function signup(user) {
+    return await proxy.post('/signup', user)
+}
 
 
 function tokenIsValid(token) {
