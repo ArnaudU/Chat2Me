@@ -3,7 +3,6 @@ import { createMessage } from '../services/PostApi';
 
 const SendMessage = () => {
     const [message, setMessage] = useState('');
-    const [error, setError] = useState("")
 
     async function handleSubmit(event) {
         event.preventDefault();
