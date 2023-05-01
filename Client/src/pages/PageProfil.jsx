@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ListMessage from "../components/ListMessage"
-import Chargement from './Chargement';
 import { getProfilPost } from '../services/PostApi';
+import Chargement from '../components/Chargement'
 import Profil from '../components/Profil';
 import PageNotFound from './PageNotFound';
 

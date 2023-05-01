@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getListFollow } from '../services/FollowApi';
 import { useParams } from 'react-router-dom';
-import Chargement from '../pages/Chargement'
+import Chargement from '../components/Chargement'
 import Profil from '../components/Profil';
 const ListProfil = (props) => {
     const { id } = useParams();
