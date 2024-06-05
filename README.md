@@ -13,7 +13,7 @@ Bienvenue sur *Chat2Me*, une plateforme où vous pouvez partager des messages, a
 
 ### Prérequis
 
-- [Node.js](https://nodejs.org/) 
+- [Reactjs](https://reactjs.org/) 
 - [MongoDB](https://www.mongodb.com/)
 
 ### Étapes
